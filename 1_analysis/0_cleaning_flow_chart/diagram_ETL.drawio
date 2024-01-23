@@ -1,0 +1,323 @@
+<mxfile host="app.diagrams.net" modified="2023-11-30T13:06:28.468Z" agent="Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/117.0" etag="szzI5csS05NPZUynWSxn" version="22.1.5" type="device">
+  <diagram id="yrULhhMWJIM0cbu3eVfn" name="Página-2">
+    <mxGraphModel dx="1434" dy="790" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="3300" pageHeight="4681" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-92" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E6E6E6;strokeColor=none;strokeWidth=0;glass=0;shadow=0;imageWidth=24;arcSize=50;absoluteArcSize=1;" parent="1" vertex="1">
+          <mxGeometry x="170" y="1140" width="580" height="550" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-4" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="-qCLXFpBdrAkpQ4DH7TE-2" target="-qCLXFpBdrAkpQ4DH7TE-3" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="390" y="430" as="sourcePoint" />
+            <mxPoint x="440" y="380" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="240" y="178" />
+              <mxPoint x="240" y="130" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-6" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="-qCLXFpBdrAkpQ4DH7TE-1" target="-qCLXFpBdrAkpQ4DH7TE-3" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="390" y="430" as="sourcePoint" />
+            <mxPoint x="320" y="120" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="240" y="83" />
+              <mxPoint x="240" y="130" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-8" value="" style="group" parent="1" vertex="1" connectable="0">
+          <mxGeometry x="70" y="52.5" width="140" height="155" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-1" value="Data&lt;br&gt;hospitalization&lt;br&gt;N=59 001" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" parent="-qCLXFpBdrAkpQ4DH7TE-8" vertex="1">
+          <mxGeometry width="140" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-2" value="Data&lt;br&gt;socio-demographic&lt;br&gt;N = 57 208" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" parent="-qCLXFpBdrAkpQ4DH7TE-8" vertex="1">
+          <mxGeometry y="95" width="140" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-3" value="" style="shape=sumEllipse;perimeter=ellipsePerimeter;whiteSpace=wrap;html=1;backgroundOutline=1;fontColor=#009900;strokeColor=#009900;" parent="1" vertex="1">
+          <mxGeometry x="336.5" y="112.5" width="37" height="37" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-7" value="Inner Join&lt;br&gt;on: &quot;NUHSA_ENCRIPTADO&quot;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#009900;" parent="1" vertex="1">
+          <mxGeometry x="280" y="70" width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-10" value="patient*&lt;br&gt;N = 59 001" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="295" y="180" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-11" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="-qCLXFpBdrAkpQ4DH7TE-3" target="-qCLXFpBdrAkpQ4DH7TE-10" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="390" y="350" as="sourcePoint" />
+            <mxPoint x="440" y="300" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="-qCLXFpBdrAkpQ4DH7TE-16" target="-qCLXFpBdrAkpQ4DH7TE-19" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-16" value="Determine whether the last hospitalization is considered a reinfection." style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;" parent="1" vertex="1">
+          <mxGeometry x="258.75" y="280" width="192.5" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-18" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="-qCLXFpBdrAkpQ4DH7TE-10" target="-qCLXFpBdrAkpQ4DH7TE-16" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="354.5" y="280" as="sourcePoint" />
+            <mxPoint x="354.5" y="340" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fillColor=#e51400;strokeColor=#FF0000;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="-qCLXFpBdrAkpQ4DH7TE-19" target="-qCLXFpBdrAkpQ4DH7TE-22" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="470" y="460" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="-qCLXFpBdrAkpQ4DH7TE-19" target="-qCLXFpBdrAkpQ4DH7TE-30" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="355" y="510" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-19" value="Keep the last &lt;br&gt;hospitalization" style="rhombus;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="293.75" y="380" width="122.5" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-22" value="&lt;font color=&quot;#ff0000&quot;&gt;These hospitalizations are not the last for that patient&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="500.5" y="387.5" width="170" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-27" value="N = 57 208" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="331.25" y="469" width="115" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-35" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="-qCLXFpBdrAkpQ4DH7TE-30" target="-qCLXFpBdrAkpQ4DH7TE-38" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="355.3333333333335" y="640" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-30" value="Has the patient pmhx &lt;br&gt;or lab information?" style="rhombus;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="270" y="500" width="170.01" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-31" value="&lt;font color=&quot;#ff0000&quot;&gt;N = 1 793&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="385.5" y="422" width="115" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-32" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fillColor=#e51400;strokeColor=#FF0000;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="-qCLXFpBdrAkpQ4DH7TE-30" target="-qCLXFpBdrAkpQ4DH7TE-33" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="514.5" y="585" as="targetPoint" />
+            <mxPoint x="460.5" y="545" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-33" value="&lt;font color=&quot;#ff0000&quot;&gt;These patients has no information about pmhx or lab.&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="500.5" y="512.5" width="170" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-34" value="&lt;font color=&quot;#ff0000&quot;&gt;N = 4 620&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="410.5" y="555" width="90" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-36" value="N = 52 588" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="344.13" y="600" width="89.25" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-45" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="-qCLXFpBdrAkpQ4DH7TE-38" target="-qCLXFpBdrAkpQ4DH7TE-44" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-38" value="" style="shape=sumEllipse;perimeter=ellipsePerimeter;whiteSpace=wrap;html=1;backgroundOutline=1;fontColor=#009900;strokeColor=#009900;" parent="1" vertex="1">
+          <mxGeometry x="336.505" y="662.5" width="37" height="37" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-39" value="Inner Join&lt;br&gt;on: &quot;NUHSA_ENCRIPTADO&quot; and &quot;admission_datetime&quot;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#009900;" parent="1" vertex="1">
+          <mxGeometry x="370" y="662.5" width="210" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-42" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="-qCLXFpBdrAkpQ4DH7TE-41" target="-qCLXFpBdrAkpQ4DH7TE-38" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-41" value="Data&lt;br&gt;lab_24h&lt;br&gt;N = 49 996" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" parent="1" vertex="1">
+          <mxGeometry x="70" y="651" width="140" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-43" value="&lt;i&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;*Patient can be repeated rows corresponding to multiple hospitalizations.&lt;/font&gt;&lt;/i&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="430" y="195" width="170" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-58" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="-qCLXFpBdrAkpQ4DH7TE-44" target="-qCLXFpBdrAkpQ4DH7TE-50" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-44" value="patient&lt;br&gt;N =49 996" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="295.005" y="740" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-46" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fillColor=#e51400;strokeColor=#FF0000;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="-qCLXFpBdrAkpQ4DH7TE-44" target="-qCLXFpBdrAkpQ4DH7TE-47" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="504" y="872.5" as="targetPoint" />
+            <mxPoint x="427.5" y="832.5" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-47" value="These patients either have no data in lab_24h for the &quot;admission_time&quot;, or their &quot;NUHSA_ENCRIPTADO&quot; is not present." style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#FF0000;" parent="1" vertex="1">
+          <mxGeometry x="490" y="737.5" width="210" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-48" value="&lt;font color=&quot;#ff0000&quot;&gt;N = 2 592&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="400" y="770" width="90" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-49" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="-qCLXFpBdrAkpQ4DH7TE-50" target="-qCLXFpBdrAkpQ4DH7TE-54" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-50" value="" style="shape=sumEllipse;perimeter=ellipsePerimeter;whiteSpace=wrap;html=1;backgroundOutline=1;fontColor=#009900;strokeColor=#009900;" parent="1" vertex="1">
+          <mxGeometry x="336.505" y="841.5" width="37" height="37" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-51" value="Inner Join&lt;br&gt;on: &quot;NUHSA_ENCRIPTADO&quot;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#009900;" parent="1" vertex="1">
+          <mxGeometry x="370" y="841.5" width="210" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-52" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="-qCLXFpBdrAkpQ4DH7TE-53" target="-qCLXFpBdrAkpQ4DH7TE-50" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-53" value="Data&lt;br&gt;pmhx&lt;br&gt;N = 56 960" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" parent="1" vertex="1">
+          <mxGeometry x="70" y="830" width="140" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-60" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="-qCLXFpBdrAkpQ4DH7TE-54" target="-qCLXFpBdrAkpQ4DH7TE-59" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-54" value="patient&lt;br&gt;N =49 996" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="295.005" y="919" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-72" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="-qCLXFpBdrAkpQ4DH7TE-59" target="-qCLXFpBdrAkpQ4DH7TE-67" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-59" value="Is there any &lt;br&gt;inconsistency between the &lt;br&gt;discharge period and the &lt;br&gt;date of death?" style="rhombus;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="253.76" y="1010" width="202.49" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-61" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fillColor=#e51400;strokeColor=#FF0000;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="-qCLXFpBdrAkpQ4DH7TE-59" target="-qCLXFpBdrAkpQ4DH7TE-62" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="574" y="1180" as="targetPoint" />
+            <mxPoint x="485" y="1077.5" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-62" value="In these records, death occurs 1 year before the date recorded as discharge." style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#FF0000;" parent="1" vertex="1">
+          <mxGeometry x="510" y="1027.5" width="210" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-63" value="&lt;font color=&quot;#ff0000&quot;&gt;N = 6&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="433.38" y="1055.5" width="90" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-64" value="N = 49 990" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="344.88" y="1113" width="89.25" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-78" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="-qCLXFpBdrAkpQ4DH7TE-67" target="-qCLXFpBdrAkpQ4DH7TE-74" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-67" value="Age of patient &lt;br&gt;&amp;gt;= 18 years" style="rhombus;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="290.64" y="1161" width="129.36" height="89" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-70" value="&lt;font color=&quot;#ff0000&quot;&gt;N = 0&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="416.25" y="1180" width="90" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-71" value="N = 49 990" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="348.88" y="1259" width="89.25" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-73" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fillColor=#e51400;strokeColor=#FF0000;" parent="1" source="-qCLXFpBdrAkpQ4DH7TE-67" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="500" y="1205" as="targetPoint" />
+            <mxPoint x="420" y="1206" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-81" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;strokeColor=#FF0000;" parent="1" source="-qCLXFpBdrAkpQ4DH7TE-74" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="500" y="1344.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-85" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="-qCLXFpBdrAkpQ4DH7TE-74" target="-qCLXFpBdrAkpQ4DH7TE-84" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-74" value="Discharge date &amp;lt; Admission date" style="rhombus;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="280.64" y="1299" width="149.36" height="91" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-75" value="&lt;font color=&quot;#ff0000&quot;&gt;N = 20&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="446.25" y="1320" width="41.01" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-76" value="N = 49 970" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="348.88" y="1400" width="89.25" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-83" value="There are 20 cases in which the date of discharge is less than the admission date (the length of hospital stay would be negative)." style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#FF0000;" parent="1" vertex="1">
+          <mxGeometry x="500.5" y="1312" width="239.5" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-87" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="-qCLXFpBdrAkpQ4DH7TE-84" target="-qCLXFpBdrAkpQ4DH7TE-86" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-88" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;strokeColor=#FF0000;" parent="1" source="-qCLXFpBdrAkpQ4DH7TE-84" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="510" y="1480" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-84" value="No information&lt;br&gt;&amp;nbsp;on admission date" style="rhombus;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="280.64" y="1440" width="149.36" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-89" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;strokeColor=#FF0000;" parent="1" source="-qCLXFpBdrAkpQ4DH7TE-86" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="510" y="1630" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-97" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="-qCLXFpBdrAkpQ4DH7TE-86" target="-qCLXFpBdrAkpQ4DH7TE-102" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="355.33333333333326" y="1750" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-86" value="No information&lt;br&gt;&amp;nbsp;on hospital outcome" style="rhombus;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="270.64" y="1590" width="169.36" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-90" value="&lt;font color=&quot;#ff0000&quot;&gt;N = 0&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="454.49" y="1450" width="41.01" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-91" value="&lt;font color=&quot;#ff0000&quot;&gt;N = 0&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="454.49" y="1600" width="41.01" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-93" value="&lt;font style=&quot;font-size: 19px;&quot;&gt;Exclusion Criteria&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;rotation=-90;fontColor=#B3B3B3;" parent="1" vertex="1">
+          <mxGeometry x="100.64" y="1400" width="180" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-95" value="N = 49 970" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="348.88" y="1540" width="89.25" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-96" value="N = 49 970" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="348.88" y="1710" width="89.25" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-105" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="-qCLXFpBdrAkpQ4DH7TE-99" target="-qCLXFpBdrAkpQ4DH7TE-102" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-99" value="Vaccination &lt;br&gt;N = 132 022" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" parent="1" vertex="1">
+          <mxGeometry x="70" y="1790" width="140" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-107" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="-qCLXFpBdrAkpQ4DH7TE-102" target="-qCLXFpBdrAkpQ4DH7TE-106" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-102" value="" style="shape=sumEllipse;perimeter=ellipsePerimeter;whiteSpace=wrap;html=1;backgroundOutline=1;fontColor=#009900;strokeColor=#009900;" parent="1" vertex="1">
+          <mxGeometry x="336.5" y="1801.5" width="37" height="37" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-103" value="Left join (patient - vaccination) to get the number of doses at admission time for each patient" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#009900;" parent="1" vertex="1">
+          <mxGeometry x="385.5" y="1805" width="210" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-110" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="-qCLXFpBdrAkpQ4DH7TE-106" target="-qCLXFpBdrAkpQ4DH7TE-108" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-111" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="-qCLXFpBdrAkpQ4DH7TE-106" target="-qCLXFpBdrAkpQ4DH7TE-109" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-115" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="-qCLXFpBdrAkpQ4DH7TE-106" target="-qCLXFpBdrAkpQ4DH7TE-112" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-106" value="patient&lt;br&gt;N =49 970" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="295" y="1870" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-108" value="Pateint dataframe&lt;br&gt;saved as CSV" style="shape=dataStorage;whiteSpace=wrap;html=1;fixedSize=1;" parent="1" vertex="1">
+          <mxGeometry x="480" y="1940" width="170" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-109" value="Pateint dataframe&lt;br&gt;saved as PICKLE" style="shape=dataStorage;whiteSpace=wrap;html=1;fixedSize=1;" parent="1" vertex="1">
+          <mxGeometry x="480" y="2010" width="170" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-117" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="-qCLXFpBdrAkpQ4DH7TE-112" target="-qCLXFpBdrAkpQ4DH7TE-116" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-112" value="Inpute NA&#39;s using&lt;br&gt;Iterative Imputer" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;" parent="1" vertex="1">
+          <mxGeometry x="258.75" y="2060" width="192.5" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-113" value="Pateint imputed&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;dataframe&amp;nbsp;saved as&amp;nbsp;CSV" style="shape=dataStorage;whiteSpace=wrap;html=1;fixedSize=1;" parent="1" vertex="1">
+          <mxGeometry x="480" y="2210" width="200" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-114" value="Pateint imputed&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;dataframe&amp;nbsp;saved as&amp;nbsp;&amp;nbsp;PICKLE" style="shape=dataStorage;whiteSpace=wrap;html=1;fixedSize=1;" parent="1" vertex="1">
+          <mxGeometry x="480" y="2280" width="200" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-118" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="-qCLXFpBdrAkpQ4DH7TE-116" target="-qCLXFpBdrAkpQ4DH7TE-113" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-119" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="-qCLXFpBdrAkpQ4DH7TE-116" target="-qCLXFpBdrAkpQ4DH7TE-114" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-qCLXFpBdrAkpQ4DH7TE-116" value="patient imputed&lt;br&gt;N =49 970" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="296.25" y="2150" width="120" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

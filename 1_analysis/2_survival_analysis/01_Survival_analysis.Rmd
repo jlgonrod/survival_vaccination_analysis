@@ -1,0 +1,1511 @@
+---
+title: "01_Survival_analysis"
+author: "jlgonrod"
+date: "2024-01-02"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Libraries
+
+The required libraries are loaded.
+
+```{r, warning=FALSE}
+# Load necessary libraries
+library(survival)
+library(forestplot)
+library(ggplot2)
+library(survminer)
+library(ggdist)
+library(dplyr)
+library(writexl)
+library(grid)
+library(gridExtra)
+library(cowplot)
+```
+
+# Functions
+This R function performs survival analysis, evaluating the effect of vaccination status on survival outcomes for a specified day.
+```{r}
+# Function for Survival Analysis
+analyze_survival <- function(data, time_var, status_var, vax_status, day) {
+  
+  # Subset data based on vaccination status
+  subset_data <- subset(data, vaccinated == vax_status)
+  
+  # Fit survival model
+  surv_model <- survfit(Surv(get(time_var), get(status_var)) ~ 1, data = subset_data)
+  
+  # Print summary without rounding
+  cat(paste("Summary for", ifelse(vax_status == 1, "Vaccinated", "Non-Vaccinated"), "on Day", day, ":\n"))
+  print(summary(surv_model, times = day))
+}
+```
+
+This function performs survival analysis on a given dataframe, generates Kaplan-Meier survival plots stratified by vaccination status, and saves the plots as both PNG and TIFF files, without returning any values.
+```{r}
+generate_survival_plot <- function(df, plot_title, figure_number) {
+
+  # Fit the survival model
+  surv_model <- survfit(Surv(time=Survival_in_days, event=Status) ~ vaccinated, data = df)
+
+  # Generate the plot
+  plot <- ggsurvplot(
+    surv_model,
+    data = df,
+    strat.by = "vaccinated",
+    combine = TRUE,  # Combine the plots for different levels of 'vaccinated'
+    pval = TRUE,
+    pval.method= TRUE,
+    conf.int = TRUE,
+    legend.title = "Vaccination Status",
+    legend.labs = c("Not Vaccinated", "Vaccinated"),
+    risk.table = TRUE,
+    palette=c("#f08080", "#4fc977"),
+    title=plot_title,
+    title.margin = margin(20, 0, 20, 0),
+    xlab = "Days"
+  )
+  
+  # Save the plot as png
+  png(paste0("../OUTPUT_figures_tables/Figure_", figure_number, ".png"),
+      width = 2400,
+      height = 1600,
+      res = 200,
+      pointsize = 1)
+  print(plot)
+  dev.off()
+
+  #Save the plot as tiff
+  tiff(paste0("../OUTPUT_figures_tables/Figure_", figure_number, ".tiff"),
+      width = 2400,
+      height = 1600,
+      res = 200,
+      pointsize = 1)
+  print(plot)
+  dev.off()
+
+  # Return the plot
+  return(plot)
+}
+```
+
+
+This is a function that performs survival analysis using the CoxPH method on a given dataframe. It also conducts an analysis of significant laboratory variables, generates a forest plot, and produces a model report. The function saves the report in Excel format, and the results are returned as a forest plot and the model report. Additionally, a graphical representation of the forest plot is saved in both PNG and TIFF formats.
+```{r}
+generate_coxph_analysis <- function(dataframe, dependent_vars, group_name, num_table, num_fig){
+  
+  # Create the formula
+  formula_string <- paste("Surv(Survival_in_days, Status) ~", paste(included_vars, collapse = " + "))
+  formula <- as.formula(formula_string)
+
+  # Model
+  cox_model <- coxph(formula, data = dataframe)
+  
+  # Extract the model report
+  cox_model_summary <- summary(cox_model_refined)
+  
+  # Extract the relevant_data
+  coefficients <- as.data.frame(cox_model_summary$coefficients)
+  intervals <- as.data.frame(cox_model_summary$conf.int)
+
+  # Combine both df with relevant info
+  cox_model_report <- cbind(coefficients, intervals[, c("lower .95", "upper .95")])
+
+  # Change the names of the variables to be more descriptive
+  rownames(cox_model_report) <- remap_rows[rownames(cox_model_report)]
+  
+  # Save the report in excel
+  excel_path <- paste0("../OUTPUT_figures_tables/Table_", num_table, "_Cox_Model_Report_", group_name,".xlsx")
+
+  cox_model_report_excel <- cox_model_report %>%
+    mutate(variables = row.names(cox_model_report)) %>%
+    select(variables, everything())
+  write_xlsx(cox_model_report_excel, excel_path)
+  
+  # create the foresplot
+  plot_title <- paste0("Forest Plot - Hazard ratio (with 95% Confidence Interval)\nRefined model | Group:", group_name)
+  foresplot <- create_forest_plot(cox_model_report, plot_title, num_fig)
+  
+  return(list(cox_model_report, foresplot))
+}
+```
+
+Function to generate the forestplot
+```{r}
+create_forest_plot <- function(cox_model_report, plot_title, n_figure) {
+  
+  cox_model_report <- cox_model_report %>%
+    mutate(adverse_protective = case_when(`lower .95` > 1 & `upper .95` > 1 ~ "Adverse",
+                                          `lower .95` < 1 & `upper .95` < 1 ~ "Protective",
+                                          TRUE ~ "Inconclusive"),
+           adverse_protective = as.factor(adverse_protective)
+  )
+  
+  p <- ggplot(cox_model_report,
+              aes(x = `exp(coef)`,
+                  xmin = `lower .95`,
+                  xmax = `upper .95`,
+                  y = factor(rownames(cox_model_report), levels = rev(rownames(cox_model_report))))) +
+    geom_point(aes(color = adverse_protective), size = 2) +
+    geom_errorbarh(aes(color = adverse_protective), height = 0.1, linewidth = 0.5) +
+    geom_vline(xintercept = 1, linetype = "dashed", color = "black") +
+    labs(title = plot_title,
+         x = "Hazard Ratio (HR)",
+         y = "Predictor Variable") +
+    scale_color_manual(name = "HR Impact",
+                       values = c("Adverse" = "#C0392B",
+                                  "Protective" = "#27ae60",
+                                  "Inconclusive" = "gray70")) +
+    theme_minimal() +
+    theme(plot.title = element_text(hjust = 0.5, lineheight = 1.5))
+  
+  # Save as png
+  png(paste("../OUTPUT_figures_tables/Figure_", n_figure, ".png", sep = ""),
+      width = 1600,
+      height = 2000,
+      res = 200,
+      pointsize = 1)
+  print(p)
+  dev.off()
+  
+  # Save as tiff
+  tiff(paste("../OUTPUT_figures_tables/Figure_", n_figure, ".tiff", sep = ""),
+       width = 1600,
+       height = 2000,
+       res = 200,
+       pointsize = 1)
+  print(p)
+  dev.off()
+  
+  return(p)
+}
+```
+
+
+
+# 0. Load data
+
+The df is imported and the variables that are not suitable for the analysis are removed. The important variables are renamed according to the analysis nomenclature.
+
+```{r}
+df <- read.csv("data/survival_data.csv")
+
+# Remove columns no suitable for the analysis
+df <- subset(df, select=-c(inpatient_days, admission_datetime,
+                           discharge_datetime, death_datetime))
+
+# Rename columns to be more interpretable
+df <- df %>%
+  rename(Status = hospital_outcome,
+         Survival_in_days = followup_days)
+
+# Check the structure of your dataframe
+str(df)
+```
+
+Set a more descriptive names for sex levels
+
+```{r}
+df$sex <- as.factor(df$sex)
+df$sex <- recode(df$sex, "0" = "Female",
+                         "1" = "Male")
+```
+
+Let's encoded Waves as one categorical variable instead of 7 oneHotEncoding variables.
+
+```{r}
+# One-hot encoded columns
+one_hot_columns <- grep("wave", colnames(df), value = TRUE)
+
+# Get the index of the column with the maximum value in each row
+original_column_index <- max.col(df[, one_hot_columns], "first")
+
+# Get the name of the corresponding original column
+original_column_name <- one_hot_columns[original_column_index]
+
+# Add the original column to the DataFrame
+df$wave <- original_column_name
+df[1:10, c(one_hot_columns, "wave")]
+
+df$wave <- as.factor(df$wave)
+
+rm(original_column_index, original_column_name)
+```
+
+Remove unused waves_x
+
+```{r}
+df <- df[, -which(names(df) %in% one_hot_columns)]
+rm(one_hot_columns)
+
+```
+
+# 1. Analysis 1: CoxPH dichotomous vaccination.
+
+Variables are reordered in the df. The variables 'wave' and 'num_shots' are not used as predictive variables in the model.
+
+```{r}
+# Specify the desired order of variables
+desired_order <- c("Survival_in_days", "Status", "vaccinated", "sex", "age", "type_center", "icu", "wave")
+
+# Get all variable names from the dataframe
+variables <- colnames(df)
+
+# Order the variables with specified order first, followed by the remaining variables in their original order
+ordered_variables <- c(desired_order, setdiff(variables, desired_order))
+
+# Order the columns in the df
+df <- df %>%
+  select(all_of(ordered_variables))
+
+# get the descriptive variables
+variables <- variables[!grepl(paste(c("Survival_in_days", "Status", "num_shots", "wave", "id"), collapse = "|"), variables)]
+
+rm(ordered_variables, desired_order)
+```
+
+## 1.1. Train the model
+
+The predictive model is then trained and plotted their coefficients as a forest p#lot.
+
+```{r}
+# Create the Cox model formula dynamically using the ordered and filtered variables
+formula_string <- paste("Surv(Survival_in_days, Status) ~", paste(variables, collapse = " + "))
+cox_model_formula <- as.formula(formula_string)
+
+# Fit the Cox model using the specified formula and the dataframe
+cox_model <- coxph(cox_model_formula, data = df)
+
+# Obtain the summary of the Cox model
+cox_model_summary <- summary(cox_model)
+
+rm(variables, formula_string, cox_model_formula)
+```
+
+Review the model's report.
+
+```{r}
+cox_model_summary
+```
+
+## 1.2. ForestPlot
+
+Get the relevant information from the model.
+
+```{r}
+coefficients <- as.data.frame(cox_model_summary$coefficients)
+intervals <- as.data.frame(cox_model_summary$conf.int)
+
+cox_model_report <- cbind(coefficients, intervals[, c("lower .95", "upper .95")])
+rm(coefficients, intervals)
+```
+
+Let's rename the row names to be more clear
+
+```{r}
+# Let's rename the variables to be more descriptives
+remap_rows <- c(
+  "vaccinated" = "Vaccinated",
+  "sexMale" = "Sex Male",
+  "age" = "Age",
+  "type_centerSpecialized Hospital" = "Medical Center Type Specialty",
+  "type_centerRegional Hospital" = "Medical Center Type Regional",
+  "icu" = "ICU Stay",
+  "wavewave_3" = "Wave 3",
+  "wavewave_4" = "Wave 4",
+  "wavewave_5" = "Wave 5",
+  "wavewave_6" = "Wave 6",
+  "wavewave_7" = "Wave 7",
+  "pmhx_activecancer" = "Preexisting Condition Active Cancer",
+  "pmhx_asthma" = "Preexisting Condition Asthma",
+  "pmhx_chf" = "Preexisting Condition Congestive Heart Failure",
+  "pmhx_chronicliver" = "Preexisting Condition Chronic Liver",
+  "pmhx_ckd" = "Preexisting Condition Chronic Kidney Disease",
+  "pmhx_copd" = "Preexisting Condition COPD",
+  "pmhx_dementia" = "Preexisting Condition Dementia",
+  "pmhx_diabetes" = "Preexisting Condition Diabetes",
+  "pmhx_hld" = "Preexisting Condition Hyperlipidemia",
+  "pmhx_htn" = "Preexisting Condition Hypertension",
+  "pmhx_ihd" = "Preexisting Condition Ischemic Heart Disease",
+  "pmhx_obesity" = "Preexisting Condition Obesity",
+  "pmhx_stroke" = "Preexisting Condition Stroke",
+  "lab_alt" = "Alanine Transaminase",
+  "lab_ast" = "Aspartate Transaminase",
+  "lab_creatinine" = "Creatinine",
+  "lab_crp" = "C-Reactive Protein",
+  "lab_ddimer" = "D-Dimer",
+  "lab_glucose" = "Glucose",
+  "lab_hct" = "Hematocrit",
+  "lab_hemoglobin" = "Hemoglobin",
+  "lab_inr" = "Normalized Prothrombin Time - INR",
+  "lab_ldh" = "Lactate Dehydrogenase",
+  "lab_leukocyte" = "Leukocyte Count",
+  "lab_lymphocyte" = "Lymphocyte Count",
+  "lab_lymphocyte_percentage" = "Lymphocyte Percentage",
+  "lab_mch" = "Mean Corpuscular Hemoglobin",
+  "lab_mcv" = "Mean Corpuscular Volume",
+  "lab_neutrophil" = "Neutrophil Count",
+  "lab_neutrophil_percentage" = "Neutrophil Percentage",
+  "lab_platelet" = "Platelet Count",
+  "lab_potassium" = "Potassium",
+  "lab_rbc" = "Red Blood Cell Count",
+  "lab_sodium" = "Sodium",
+  "lab_urea" = "Urea"
+)
+
+# Assign new row names using the mapper, with handling for NA
+new_row_names <- ifelse(rownames(cox_model_report) %in% names(remap_rows),
+                        remap_rows[rownames(cox_model_report)],
+                        rownames(cox_model_report))
+
+# Assign the new row names to the DataFrame
+rownames(cox_model_report) <- new_row_names
+```
+
+Save an excel with the model coefficients.
+
+```{r}
+# Create a new variable with the names and save it to excel
+excel_path <- "../OUTPUT_figures_tables/Table_6_Cox_Model_Report.xlsx"
+
+cox_model_report_excel <- cox_model_report %>%
+  mutate(variables = row.names(cox_model_report)) %>%
+  select(variables, everything())
+write_xlsx(cox_model_report_excel, excel_path)
+
+print(cox_model_report)
+
+rm(excel_path, cox_model_report_excel)
+```
+
+Generate the forestplot and save as tiff and png.
+
+```{r, fig.height=12, fig.width=8}
+# Create a variable factorial to indicate if the variable is a adverse or a protective effect
+cox_model_report <- cox_model_report %>%
+  mutate(adverse_protective = case_when(`lower .95` > 1 & `upper .95` > 1 ~ "Adverse",
+                                        `lower .95` < 1 & `upper .95` < 1 ~ "Protective",
+                                        TRUE ~ "Inconclusive"
+    ),)
+cox_model_report$adverse_protective <- as.factor(cox_model_report$adverse_protective)
+
+p <-ggplot(cox_model_report,
+           aes(x = `exp(coef)`,
+               xmin = `lower .95`,
+               xmax = `upper .95`,
+               y = factor(rownames(cox_model_report), levels = rev(rownames(cox_model_report))))) +
+  geom_point(aes(color = adverse_protective), size = 2) +  # Color según adverse_protective
+  geom_errorbarh(aes(color = adverse_protective), height = 0.1, linewidth = 0.5) +  # Color según adverse_protective
+  geom_vline(xintercept = 1, linetype = "dashed", color = "black") +
+  labs(title = "Forest Plot - Hazard ratio (with 95% Confidence Interval)",
+       x = "Hazard Ratio (HR)",
+       y = "Predictor Variable") +
+  scale_color_manual(name="HR Impact",
+                     values = c("Adverse" = "#C0392B",
+                                "Protective" = "#27ae60",
+                                "Inconclusive" = "gray70")) +  # Asignar colores
+  theme_minimal()+
+  theme(
+    plot.title = element_text(hjust = 0.5)
+  )
+
+
+n_figure <- 7
+
+# Save as png
+png(paste("../OUTPUT_figures_tables/Figure_", n_figure, ".png", sep=""),
+    width = 1600,
+    height = 2000,
+    res = 200,
+    pointsize = 1)
+p
+dev.off()
+
+# Save as tiff
+tiff(paste("../OUTPUT_figures_tables/Figure_", n_figure, ".tiff", sep=""),
+    width = 1600,
+    height = 2000,
+    res = 200,
+    pointsize = 1)
+p
+dev.off()
+
+# Plot
+p
+
+rm(n_figure, p)
+```
+
+## 1.3. CoxPH Refined
+
+Laboratory variables lacking statistical significance will be eliminated in the analysis.
+
+```{r}
+# Undo remapping
+original_row_names <- names(remap_rows)
+rownames(cox_model_report) <- original_row_names[match(rownames(cox_model_report), remap_rows)]
+index_lab <- grep("^lab_",rownames(cox_model_report))[1]
+
+# Keeps previous significal labs_variables
+labs_variables <- rownames(cox_model_report)[index_lab:nrow(cox_model_report)]
+sign_lab <- cox_model_report[labs_variables, ] %>%
+  filter(`Pr(>|z|)` < 0.05) %>%
+  rownames
+
+# Get previous variables
+other_vars <- colnames(df)[1:(grep("^lab_", colnames(df))[1]-1)]
+other_vars <- other_vars[!other_vars %in% c("Status", "Survival_in_days", "num_shots", "wave")]
+
+rm(original_row_names, index_lab)
+```
+
+Let's print the variables removed
+
+```{r}
+removed_lab <- setdiff(labs_variables, sign_lab)
+cat("Removed variables:\n")
+cat(paste("\t", remap_rows[removed_lab], sep = ""), sep = "\n")
+rm(removed_lab)
+
+rm(labs_variables)
+```
+
+Let's generate the formula and retrain the model
+
+```{r}
+# Create the formula
+included_vars <- c(other_vars, sign_lab)
+included_vars <- setdiff(included_vars, c("id"))
+
+# Create the formula
+formula_string <- paste("Surv(Survival_in_days, Status) ~", paste(included_vars, collapse = " + "))
+formula <- as.formula(formula_string)
+
+# Model
+cox_model_refined <- coxph(formula, data = df)
+
+# Extract the model report
+cox_model_refined_summary <- summary(cox_model_refined)
+cox_model_refined_summary
+
+rm(formula, formula_string, other_vars, sign_lab)
+```
+
+Let's extract the information relevant from the model report.
+
+```{r}
+coefficients <- as.data.frame(cox_model_refined_summary$coefficients)
+intervals <- as.data.frame(cox_model_refined_summary$conf.int)
+
+cox_model_refined_report <- cbind(coefficients, intervals[, c("lower .95", "upper .95")])
+rm(coefficients, intervals)
+
+rownames(cox_model_refined_report) <- remap_rows[rownames(cox_model_refined_report)]
+```
+
+Save it in an excel.
+
+```{r}
+# Save the report in excel
+excel_path <- "../OUTPUT_figures_tables/Table_7_Cox_Model_Refined_Report.xlsx"
+
+cox_model_report_refined_excel <- cox_model_refined_report %>%
+  mutate(variables = row.names(cox_model_refined_report)) %>%
+  select(variables, everything())
+write_xlsx(cox_model_report_refined_excel, excel_path)
+
+print(cox_model_refined_report)
+
+rm(excel_path, cox_model_report_refined_excel)
+```
+
+## 1.4. ForesPlot
+
+```{r, fig.height=10, fig.width=8}
+# Create a variable factorial to indicate if the variable is a adverse or a protective effect
+cox_model_refined_report <- cox_model_refined_report %>%
+  mutate(adverse_protective = case_when(`lower .95` > 1 & `upper .95` > 1 ~ "Adverse",
+                                        `lower .95` < 1 & `upper .95` < 1 ~ "Protective",
+                                        TRUE ~ "Inconclusive"
+    ),)
+cox_model_refined_report$adverse_protective <- as.factor(cox_model_refined_report$adverse_protective)
+
+p <-ggplot(cox_model_refined_report,
+           aes(x = `exp(coef)`,
+               xmin = `lower .95`,
+               xmax = `upper .95`,
+               y = factor(rownames(cox_model_refined_report), levels = rev(rownames(cox_model_refined_report))))) +
+  geom_point(aes(color = adverse_protective), size = 2) +  # Color según adverse_protective
+  geom_errorbarh(aes(color = adverse_protective), height = 0.3, linewidth = 0.5) +  # Color según adverse_protective
+  geom_vline(xintercept = 1, linetype = "dashed", color = "black") +
+  labs(title = "Forest Plot - Hazard ratio (with 95% Confidence Interval)\nRefined model",
+       x = "Hazard Ratio (HR)",
+       y = "Predictor Variable") +
+  scale_color_manual(name="HR Impact",
+                     values = c("Adverse" = "#C0392B",
+                                "Protective" = "#27ae60",
+                                "Inconclusive" = "gray70")) +  # Asignar colores
+  theme_minimal()+
+  theme(
+    plot.title = element_text(hjust = 0.5)
+  )
+
+
+n_figure <- 8
+
+cat(n_figure)
+# Save as png
+png(paste("../OUTPUT_figures_tables/Figure_", n_figure, ".png", sep=""),
+    width = 1600,
+    height = 2000,
+    res = 200,
+    pointsize = 1)
+p
+dev.off()
+
+# Save as tiff
+tiff(paste("../OUTPUT_figures_tables/Figure_", n_figure, ".tiff", sep=""),
+    width = 1600,
+    height = 2000,
+    res = 200,
+    pointsize = 1)
+p
+dev.off()
+p
+
+rm(p, n_figure)
+```
+
+## 1.5 Adjusted Survival Curves for Cox Proportional Hazards Model
+
+```{r, fig.height=10, fig.width=12}
+df<-as.data.frame(df)
+
+df$vaccinated <-factor(
+  df$vaccinated, levels = 0:1,
+  labels = c("Unvaccinated", "Vaccinated")
+)
+
+vars_descriptives <- included_vars[included_vars != "vaccinated"]
+
+# Create the formula
+string_formula <- paste("Surv(Survival_in_days, Status) ~ strata(vaccinated) + ",
+                          paste(vars_descriptives, collapse = " + "))
+formula <- as.formula(string_formula)
+  
+# Fit the Cox proportional hazards model with stratification by vaccinated status
+fit <- coxph(formula, data = df)
+  
+# Plot adjusted survival curves stratified by vaccinated status
+custom_colors <- c("Unvaccinated" = "#f08080", "Vaccinated" = "#4fc977")
+title = "Adjusted Survival Curves for Cox Proportional Hazards Model Refined"
+ajusted_curve <- ggadjustedcurves(fit,variable = 'vaccinated',
+                                       legend.title = "Vaccination Status",
+                                       main=title,
+                                       palette=custom_colors,
+                                       xlab='Days')
+
+figure_number <- 9
+
+# Save the plot as png
+png(paste0("../OUTPUT_figures_tables/Figure_", figure_number, ".png"),
+    width = 2400,
+    height = 1600,
+    res = 200,
+    pointsize = 7)
+print(ajusted_curve)
+dev.off()
+
+#Save the plot as tiff
+tiff(paste0("../OUTPUT_figures_tables/Figure_", figure_number, ".tiff"),
+    width = 2400,
+    height = 1600,
+    res = 200,
+    pointsize = 7)
+print(ajusted_curve)
+dev.off()
+
+# print the plot
+print(ajusted_curve)
+```
+
+# 2. Analysis 2: Sub-analysis stratified by age group.
+
+The dataframe was stratified into four subgroups for subsequent analyses: \>= 80 years, \>= 70 years, \>=60 years, \>= 40 years, and \>= 12 years. Within each subgroup, rows were selected based on vaccine availability:
+
+-   December 27, 2020, for individuals aged over 80 years (2.1),
+
+-   April 5, 2021, for those aged over 70 years (2.2),
+
+-   May 3, 2021 for those aged over 60 years (2.2),
+
+-   June 1, 2021, for individuals aged over 40 years (2.3),
+
+-   July 20, 2021, for individuals aged over 18 years (2.4).
+
+## 2.1. Load the data
+
+Load the csv
+
+```{r}
+df_2 <- read.csv("data/survival_data.csv")
+
+# Remove columns no suitable for the analysis
+df_2 <- subset(df_2, select=-c(inpatient_days,
+                           discharge_datetime,
+                           death_datetime))
+# cast admission_datetime from chr to Date
+df_2$admission_datetime <- as.Date(df_2$admission_datetime, format = "%Y-%m-%d")
+
+# Rename columns to be more interpretable
+df_2 <- df_2 %>%
+  rename(Status = hospital_outcome,
+         Survival_in_days = followup_days)
+
+# Rename sex levels
+df_2$sex <- as.factor(df_2$sex)
+df_2$sex <- recode(df_2$sex, "0" = "Female",
+                         "1" = "Male")
+
+# Remove wave columns
+one_hot_columns <- grep("wave", colnames(df_2), value = TRUE)
+df_2 <- df_2[, -which(names(df_2) %in% one_hot_columns)]
+rm(one_hot_columns)
+```
+
+Create 4 df per each subset of population.
+
+```{r}
+################## GROUP A: >= 80 YEARS, INIT 2020-12-27 ##################
+age_boundary<- 80
+date_boundary <- as.Date("2020-12-27") + 14 # 14 days after as it represents the start of protection after vaccination.
+
+df_over80 <- df_2%>%
+  filter(age >= age_boundary,
+         admission_datetime >= date_boundary) %>%
+  select(-c("id"))
+
+
+
+################## GROUP B: >= 70 YEARS, INIT 2021-04-05 ##################
+age_boundary<- 70
+date_boundary <- as.Date("2021-04-05") + 14 # 14 days after
+
+df_over70 <- df_2%>%
+  filter(age >= age_boundary,
+         admission_datetime >= date_boundary) %>%
+  select(-c("id"))
+
+################## GROUP C: >= 60 YEARS, INIT 2021-05-03 ##################
+age_boundary<- 60
+date_boundary <- as.Date("2021-05-03") + 14 # 14 days after
+
+df_over60 <- df_2%>%
+  filter(age >= age_boundary,
+         admission_datetime >= date_boundary) %>%
+  select(-c("id"))
+
+################## GROUP D: >= 40 YEARS, INIT 2021-06-01 ##################
+age_boundary<- 40
+date_boundary <- as.Date("2021-06-01") + 14 # 14 days after
+
+df_over40 <- df_2%>%
+  filter(age >= age_boundary,
+         admission_datetime >= date_boundary) %>%
+  select(-c("id"))
+
+################## GROUP E: >= 18 YEARS, INIT 2021-07-20 ##################
+age_boundary<- 18
+date_boundary <- as.Date("2021-07-20") + 14 # 14 days after
+
+df_over18 <- df_2%>%
+  filter(age >= age_boundary,
+         admission_datetime >= date_boundary) %>%
+  select(-c("id"))
+###########################################################################
+
+rm(age_boundary, date_boundary)
+```
+
+## 2.2. Analysis A: over 80
+
+Age: \>= 80
+
+Admission date: after or equal 27/12/2020 + 14 days
+
+```{r}
+cat("Check the subset:\n")
+summary(df_over80[, c("age", "admission_datetime")])
+cat("\nNumber rows:", nrow(df_over80))
+```
+
+### 2.2.1 CoxPH refined (Group A)
+```{r, fig.height=10, fig.width=8}
+generate_coxph_analysis(df_over80,
+                        included_vars,
+                        "Over 80 years (Group A)",
+                        num_table = 8,
+                        num_fig = 10)
+```
+
+### 2.2.2. Adjusted Survival Curves for Cox Proportional Hazards Model (group A)
+
+Comparison will be made between survival curves of individuals aged 80 and above, stratified based on vaccination status, following verification of admission dates. The curved is ajusted using the CoxPH model.
+
+```{r, fig.height=8, fig.width=10,  fig.keep='last'}
+df_over80<-as.data.frame(df_over80)
+
+df_over80$vaccinated <-factor(
+  df_over80$vaccinated, levels = 0:1,
+  labels = c("Unvaccinated", "Vaccinated")
+)
+
+vars_descriptives <- included_vars[included_vars != "vaccinated"]
+
+# Create the formula
+string_formula <- paste("Surv(Survival_in_days, Status) ~ strata(vaccinated) + ",
+                          paste(vars_descriptives, collapse = " + "))
+formula <- as.formula(string_formula)
+  
+# Fit the Cox proportional hazards model with stratification by vaccinated status
+fit <- coxph(formula, data = df_over80)
+  
+# Plot adjusted survival curves stratified by vaccinated status
+custom_colors <- c("Unvaccinated" = "#f08080", "Vaccinated" = "#4fc977")
+title = "Adjusted Survival Curves for Cox Proportional Hazards Model\nGroup A | ≥ 80 years"
+ajusted_curve_A <- ggadjustedcurves(fit,variable = 'vaccinated',
+                                       legend.title = "Vaccination Status",
+                                       main=title,
+                                       palette=custom_colors,
+                                       xlab='Days')
+
+figure_number <- 11
+
+# Save the plot as png
+png(paste0("../OUTPUT_figures_tables/Figure_", figure_number, ".png"),
+    width = 2400,
+    height = 1600,
+    res = 200,
+    pointsize = 7)
+print(ajusted_curve_A)
+dev.off()
+
+#Save the plot as tiff
+tiff(paste0("../OUTPUT_figures_tables/Figure_", figure_number, ".tiff"),
+    width = 2400,
+    height = 1600,
+    res = 200,
+    pointsize = 7)
+print(ajusted_curve_A)
+dev.off()
+
+# print the plot
+print(ajusted_curve_A)
+```
+
+## 2.3. Analysis B: over 70
+
+Age: \>= 70
+
+Admission date: after or equal 05/04/2021 + 14 days
+
+```{r}
+cat("Check the subset:\n")
+summary(df_over70[, c("age", "admission_datetime")])
+cat("\nNumber rows:", nrow(df_over70))
+```
+
+### 2.3.1 CoxPH refined (Group B)
+```{r, fig.height=10, fig.width=8}
+generate_coxph_analysis(df_over70,
+                        included_vars,
+                        "Over 70 years (Group B)",
+                        num_table = 9,
+                        num_fig = 12)
+```
+
+### 2.3.2. Adjusted Survival Curves for Cox Proportional Hazards Model (group B)
+
+Comparison will be made between survival curves of individuals aged 70 and above, stratified based on vaccination status, following verification of admission dates. 
+
+```{r, fig.height=10, fig.width=12,  fig.keep='last'}
+df_over70<-as.data.frame(df_over70)
+
+df_over70$vaccinated <-factor(
+  df_over70$vaccinated, levels = 0:1,
+  labels = c("Unvaccinated", "Vaccinated")
+)
+
+vars_descriptives <- included_vars[included_vars != "vaccinated"]
+
+# Create the formula
+string_formula <- paste("Surv(Survival_in_days, Status) ~ strata(vaccinated) + ",
+                          paste(vars_descriptives, collapse = " + "))
+formula <- as.formula(string_formula)
+  
+# Fit the Cox proportional hazards model with stratification by vaccinated status
+fit <- coxph(formula, data = df_over70)
+  
+# Plot adjusted survival curves stratified by vaccinated status
+custom_colors <- c("Unvaccinated" = "#f08080", "Vaccinated" = "#4fc977")
+title = "Adjusted Survival Curves for Cox Proportional Hazards Model\nGroup B | ≥ 70 years"
+ajusted_curve_B <- ggadjustedcurves(fit,variable = 'vaccinated',
+                                       legend.title = "Vaccination Status",
+                                       main=title,
+                                       palette=custom_colors,
+                                       xlab='Days')
+
+figure_number <- 13
+
+# Save the plot as png
+png(paste0("../OUTPUT_figures_tables/Figure_", figure_number, ".png"),
+    width = 2400,
+    height = 1600,
+    res = 200,
+    pointsize = 7)
+print(ajusted_curve_B)
+dev.off()
+
+#Save the plot as tiff
+tiff(paste0("../OUTPUT_figures_tables/Figure_", figure_number, ".tiff"),
+    width = 2400,
+    height = 1600,
+    res = 200,
+    pointsize = 7)
+print(ajusted_curve_B)
+dev.off()
+
+# print the plot
+print(ajusted_curve_B)
+```
+
+
+## 2.4. Analysis C: over 60
+
+Age: \>= 60
+
+Admission date: after or equal 03/05/2021 + 14 days
+
+```{r}
+cat("Check the subset:\n")
+summary(df_over60[, c("age", "admission_datetime")])
+cat("\nNumber rows:", nrow(df_over60))
+```
+
+### 2.3.1 CoxPH refined (Group C)
+```{r, fig.height=10, fig.width=8}
+generate_coxph_analysis(df_over60,
+                        included_vars,
+                        "Over 60 years (Group C)",
+                        num_table = 10,
+                        num_fig = 14)
+```
+
+### 2.3.2. Adjusted Survival Curves for Cox Proportional Hazards Model (group C)
+
+Comparison will be made between survival curves of individuals aged 60 and above, stratified based on vaccination status, following verification of admission dates. 
+
+```{r, fig.height=10, fig.width=12,  fig.keep='last'}
+df_over60<-as.data.frame(df_over60)
+
+df_over60$vaccinated <-factor(
+  df_over60$vaccinated, levels = 0:1,
+  labels = c("Unvaccinated", "Vaccinated")
+)
+
+vars_descriptives <- included_vars[included_vars != "vaccinated"]
+
+# Create the formula
+string_formula <- paste("Surv(Survival_in_days, Status) ~ strata(vaccinated) + ",
+                          paste(vars_descriptives, collapse = " + "))
+formula <- as.formula(string_formula)
+  
+# Fit the Cox proportional hazards model with stratification by vaccinated status
+fit <- coxph(formula, data = df_over60)
+  
+# Plot adjusted survival curves stratified by vaccinated status
+custom_colors <- c("Unvaccinated" = "#f08080", "Vaccinated" = "#4fc977")
+title = "Adjusted Survival Curves for Cox Proportional Hazards Model\nGroup C | ≥ 60 years"
+ajusted_curve_C <- ggadjustedcurves(fit,variable = 'vaccinated',
+                                       legend.title = "Vaccination Status",
+                                       main=title,
+                                       palette=custom_colors,
+                                       xlab='Days')
+
+figure_number <- 15
+
+# Save the plot as png
+png(paste0("../OUTPUT_figures_tables/Figure_", figure_number, ".png"),
+    width = 2400,
+    height = 1600,
+    res = 200,
+    pointsize = 7)
+print(ajusted_curve_C)
+dev.off()
+
+#Save the plot as tiff
+tiff(paste0("../OUTPUT_figures_tables/Figure_", figure_number, ".tiff"),
+    width = 2400,
+    height = 1600,
+    res = 200,
+    pointsize = 7)
+print(ajusted_curve_C)
+dev.off()
+
+# print the plot
+print(ajusted_curve_C)
+```
+
+
+## 2.4. Analysis D: over 40
+
+Age: \>= 40
+
+Admission date: after or equal 01/06/2021 + 14 days
+
+```{r}
+cat("Check the subset:\n")
+summary(df_over40[, c("age", "admission_datetime")])
+cat("\nNumber rows:", nrow(df_over40))
+```
+
+### 2.4.1 CoxPH refined (Group D)
+```{r, fig.height=10, fig.width=8}
+generate_coxph_analysis(df_over40,
+                        included_vars,
+                        "Over 40 years (Group D)",
+                        num_table = 11,
+                        num_fig = 16)
+```
+
+### 2.4.2. Adjusted Survival Curves for Cox Proportional Hazards Model (group D)
+
+Comparison will be made between survival curves of individuals aged 40 and above, stratified based on vaccination status, following verification of admission dates. 
+
+```{r, fig.height=10, fig.width=12,  fig.keep='last'}
+df_over40<-as.data.frame(df_over40)
+
+df_over40$vaccinated <-factor(
+  df_over40$vaccinated, levels = 0:1,
+  labels = c("Unvaccinated", "Vaccinated")
+)
+
+vars_descriptives <- included_vars[included_vars != "vaccinated"]
+
+# Create the formula
+string_formula <- paste("Surv(Survival_in_days, Status) ~ strata(vaccinated) + ",
+                          paste(vars_descriptives, collapse = " + "))
+formula <- as.formula(string_formula)
+  
+# Fit the Cox proportional hazards model with stratification by vaccinated status
+fit <- coxph(formula, data = df_over40)
+  
+# Plot adjusted survival curves stratified by vaccinated status
+custom_colors <- c("Unvaccinated" = "#f08080", "Vaccinated" = "#4fc977")
+title = "Adjusted Survival Curves for Cox Proportional Hazards Model\nGroup D | ≥ 40 years"
+ajusted_curve_D <- ggadjustedcurves(fit,variable = 'vaccinated',
+                                       legend.title = "Vaccination Status",
+                                       main=title,
+                                       palette=custom_colors,
+                                       xlab='Days')
+
+figure_number <- 17
+
+# Save the plot as png
+png(paste0("../OUTPUT_figures_tables/Figure_", figure_number, ".png"),
+    width = 2400,
+    height = 1600,
+    res = 200,
+    pointsize = 7)
+print(ajusted_curve_D)
+dev.off()
+
+#Save the plot as tiff
+tiff(paste0("../OUTPUT_figures_tables/Figure_", figure_number, ".tiff"),
+    width = 2400,
+    height = 1600,
+    res = 200,
+    pointsize = 7)
+print(ajusted_curve_D)
+dev.off()
+
+# print the plot
+print(ajusted_curve_D)
+```
+
+
+## 2.5. Analysis E: over 18
+
+Age: \>= 18
+
+Admission date: after or equal 20/07/2021 + 14 days
+
+```{r}
+cat("Check the subset:\n")
+summary(df_over18[, c("age", "admission_datetime")])
+cat("\nNumber rows:", nrow(df_over18))
+```
+
+### 2.5.1 CoxPH refined (Group D)
+```{r, fig.height=10, fig.width=8}
+generate_coxph_analysis(df_over18,
+                        included_vars,
+                        "Over 18 years (Group E)",
+                        num_table = 12,
+                        num_fig = 18)
+```
+
+### 2.5.2. Adjusted Survival Curves for Cox Proportional Hazards Model (group D)
+
+Comparison will be made between survival curves of individuals aged 18 and above, stratified based on vaccination status, following verification of admission dates. 
+
+```{r, fig.height=10, fig.width=12, fig.keep='last'}
+df_over18<-as.data.frame(df_over18)
+
+df_over18$vaccinated <-factor(
+  df_over18$vaccinated, levels = 0:1,
+  labels = c("Unvaccinated", "Vaccinated")
+)
+
+vars_descriptives <- included_vars[included_vars != "vaccinated"]
+
+# Create the formula
+string_formula <- paste("Surv(Survival_in_days, Status) ~ strata(vaccinated) + ",
+                          paste(vars_descriptives, collapse = " + "))
+formula <- as.formula(string_formula)
+  
+# Fit the Cox proportional hazards model with stratification by vaccinated status
+fit <- coxph(formula, data = df_over18)
+  
+# Plot adjusted survival curves stratified by vaccinated status
+custom_colors <- c("Unvaccinated" = "#f08080", "Vaccinated" = "#4fc977")
+title = "Adjusted Survival Curves for Cox Proportional Hazards Model\nGroup E | ≥ 18 years"
+ajusted_curve_E <- ggadjustedcurves(fit,variable = 'vaccinated',
+                                       legend.title = "Vaccination Status",
+                                       main=title,
+                                       palette=custom_colors,
+                                       xlab='Days')
+
+figure_number <- 19
+
+# Save the plot as png
+png(paste0("../OUTPUT_figures_tables/Figure_", figure_number, ".png"),
+    width = 2400,
+    height = 1600,
+    res = 200,
+    pointsize = 7)
+print(ajusted_curve_E)
+dev.off()
+
+#Save the plot as tiff
+tiff(paste0("../OUTPUT_figures_tables/Figure_", figure_number, ".tiff"),
+    width = 2400,
+    height = 1600,
+    res = 200,
+    pointsize = 7)
+print(ajusted_curve_E)
+dev.off()
+
+# print the plot
+print(ajusted_curve_E)
+```
+
+## 2.6 Summary subanalysis
+
+Below, the 4 ajusted survival curves for the groups are summarized.
+
+```{r, fig.height=25, fig.width=35}
+list_subplots <- list(ajusted_curve_A, ajusted_curve_B, ajusted_curve_C, ajusted_curve_D, ajusted_curve_E)
+plot_grid <- plot_grid(plotlist = list_subplots, nrow=2, ncol=3)
+
+n_figure <- 20
+
+# Save as png
+png(paste("../OUTPUT_figures_tables/Figure_", n_figure, ".png", sep=""),
+    width = 40*120,
+    height = 25*120,
+    res = 200,
+    pointsize = 7)
+print(plot_grid)
+dev.off()
+
+# Save as tiff
+tiff(paste("../OUTPUT_figures_tables/Figure_", n_figure, ".tiff", sep=""),
+    width = 40*120,
+    height = 25*120,
+    res = 200,
+    pointsize = 7)
+print(plot_grid)
+dev.off()
+
+# Plot
+print(plot_grid)
+```
+
+# 3. Analysis 3: Immunization Stratification: Unprotected, Protected (≥ 3 Doses, last within 180 Days), Incomplete protection
+
+## 3.1. Load the vaccination dataframe and the df original
+
+Load the survival_data.csv
+
+```{r}
+df_3 <- read.csv("data/survival_data.csv")
+
+# Remove columns no suitable for the analysis
+df_3 <- subset(df_3, select=-c(inpatient_days,
+                           discharge_datetime,
+                           death_datetime))
+# cast admission_datetime from chr to Date
+df_3$admission_datetime <- as.Date(df_3$admission_datetime, format = "%Y-%m-%d")
+
+# Rename columns to be more interpretable
+df_3 <- df_3 %>%
+  rename(Status = hospital_outcome,
+         Survival_in_days = followup_days)
+
+# Rename sex levels
+df_3$sex <- as.factor(df_3$sex)
+df_3$sex <- recode(df_3$sex, "0" = "Female",
+                         "1" = "Male")
+
+# Remove wave columns
+one_hot_columns <- grep("wave", colnames(df_3), value = TRUE)
+df_3 <- df_3[, -which(names(df_3) %in% one_hot_columns)]
+rm(one_hot_columns)
+```
+
+```{r}
+vacc_df <- read.csv("../../0_get_data/data/04_Vacunacion_covid.txt", sep = '|')
+vacc_df$FEC_VACUNACION <- as.Date(as.character(vacc_df$FEC_VACUNACION), format = "%Y%m%d")
+```
+
+## 3.2. Stratification in 3 groups
+```{r}
+# Remove previous vaccination info
+df_3$vaccinated <- NA
+
+# Merge both df_3
+merged_df <- merge(df_3, vacc_df, by.x = "id", by.y = "NUHSA_ENCRIPTADO", all.x = TRUE)
+
+# UNPROTECTED
+id_unprotected <- merged_df[is.na(merged_df$FEC_VACUNACION), "id"]
+df_3$vaccinated[df_3$id %in% id_unprotected] <- "Unprotected"
+
+# All vaccines before admission are not count
+merged_df <- merged_df %>%
+  filter(FEC_VACUNACION +14 < admission_datetime)
+
+# PROTECTED
+df_protected <- merged_df %>%
+  group_by(id) %>%
+  filter(n() >= 3) %>%
+  summarize(
+    last_dosis_date = max(FEC_VACUNACION, na.rm = TRUE),
+    admission_datetime = first(admission_datetime)  # All values are the same for admission_datetime
+  ) %>%
+  ungroup() %>%
+  mutate(days_last_dosis = as.numeric(difftime(admission_datetime, last_dosis_date, units = "days")))
+  
+id_protected <- df_protected %>% filter(days_last_dosis <= 180) %>% pull(id)
+
+df_3$vaccinated[df_3$id %in% id_protected] <- "Protected"
+
+# INCOMPLETE
+others_id <- subset(df_3, is.na(vaccinated))$id
+df_incomplete <- merged_df %>%
+  filter(id %in% others_id) %>%
+  group_by(id) %>%
+  filter(n() > 0 & n() < 3) %>%
+  summarize(
+    last_dosis_date = max(FEC_VACUNACION, na.rm = TRUE),
+    admission_datetime = first(admission_datetime)  # All values are the same for admission_datetime
+  ) %>%
+  ungroup %>%
+  mutate(days_last_dosis = as.numeric(difftime(admission_datetime, last_dosis_date, units = "days"))) %>%
+  filter(days_last_dosis > 180)
+
+id_incomplete <-  df_incomplete %>% pull(id)
+
+df_3$vaccinated[df_3$id %in% id_incomplete] <- "Incomplete"
+
+
+# REMOVE OTHER CASES
+df_3 <- df_3[complete.cases(df_3$vaccinated), ]
+
+
+# Set as factor
+df_3$vaccinated <- as.factor(df_3$vaccinated)
+df_3$vaccinated <- factor(df_3$vaccinated, levels = c("Unprotected", "Protected", "Incomplete"))
+
+# Count each possible level
+cat("Vaccination subgroups:")
+print(table(df_3$vaccinated))
+```
+
+## 3.3 CoxPH refined
+```{r, fig.height=10, fig.width=8}
+# Create the formula
+formula_string <- paste("Surv(Survival_in_days, Status) ~", paste(included_vars, collapse = " + "))
+formula <- as.formula(formula_string)
+
+# Model
+cox_model_3 <- coxph(formula, data = df_3)
+  
+# Extract the model report
+cox_model_summary_3 <- summary(cox_model_3)
+  
+# Extract the relevant_data
+coefficients <- as.data.frame(cox_model_summary_3$coefficients)
+intervals <- as.data.frame(cox_model_summary_3$conf.int)
+
+# Combine both df_3 with relevant info
+cox_model_report3 <- cbind(coefficients, intervals[, c("lower .95", "upper .95")])
+
+remap_rows = remap_rows <- c(
+  "vaccinatedProtected" = "Vaccinated (Protected)",
+  "vaccinatedIncomplete" = "Vaccinated (Incomplete)",
+  "sexMale" = "Sex Male",
+  "age" = "Age",
+  "type_centerSpecialized Hospital" = "Medical Center Type Specialty",
+  "type_centerRegional Hospital" = "Medical Center Type Regional",
+  "icu" = "ICU Stay",
+  "wavewave_3" = "Wave 3",
+  "wavewave_4" = "Wave 4",
+  "wavewave_5" = "Wave 5",
+  "wavewave_6" = "Wave 6",
+  "wavewave_7" = "Wave 7",
+  "pmhx_activecancer" = "Preexisting Condition Active Cancer",
+  "pmhx_asthma" = "Preexisting Condition Asthma",
+  "pmhx_chf" = "Preexisting Condition Congestive Heart Failure",
+  "pmhx_chronicliver" = "Preexisting Condition Chronic Liver",
+  "pmhx_ckd" = "Preexisting Condition Chronic Kidney Disease",
+  "pmhx_copd" = "Preexisting Condition COPD",
+  "pmhx_dementia" = "Preexisting Condition Dementia",
+  "pmhx_diabetes" = "Preexisting Condition Diabetes",
+  "pmhx_hld" = "Preexisting Condition Hyperlipidemia",
+  "pmhx_htn" = "Preexisting Condition Hypertension",
+  "pmhx_ihd" = "Preexisting Condition Ischemic Heart Disease",
+  "pmhx_obesity" = "Preexisting Condition Obesity",
+  "pmhx_stroke" = "Preexisting Condition Stroke",
+  "lab_alt" = "Alanine Transaminase",
+  "lab_ast" = "Aspartate Transaminase",
+  "lab_creatinine" = "Creatinine",
+  "lab_crp" = "C-Reactive Protein",
+  "lab_ddimer" = "D-Dimer",
+  "lab_glucose" = "Glucose",
+  "lab_hct" = "Hematocrit",
+  "lab_hemoglobin" = "Hemoglobin",
+  "lab_inr" = "Normalized Prothrombin Time - INR",
+  "lab_ldh" = "Lactate Dehydrogenase",
+  "lab_leukocyte" = "Leukocyte Count",
+  "lab_lymphocyte" = "Lymphocyte Count",
+  "lab_lymphocyte_percentage" = "Lymphocyte Percentage",
+  "lab_mch" = "Mean Corpuscular Hemoglobin",
+  "lab_mcv" = "Mean Corpuscular Volume",
+  "lab_neutrophil" = "Neutrophil Count",
+  "lab_neutrophil_percentage" = "Neutrophil Percentage",
+  "lab_platelet" = "Platelet Count",
+  "lab_potassium" = "Potassium",
+  "lab_rbc" = "Red Blood Cell Count",
+  "lab_sodium" = "Sodium",
+  "lab_urea" = "Urea"
+)
+
+# Assign new row names using the mapper, with handling for NA
+new_row_names <- ifelse(rownames(cox_model_report3) %in% names(remap_rows),
+                        remap_rows[rownames(cox_model_report3)],
+                        rownames(cox_model_report3))
+
+# Assign the new row names to the DataFrame
+rownames(cox_model_report3) <- new_row_names
+
+num_table <- 13
+# Save the report in excel
+excel_path <- paste0("../OUTPUT_figures_tables/Table_", num_table, "_Cox_Model_Report_", "Stratification Unprotected, Protected and Incomplete",".xlsx")
+#
+cox_model_report_excel <- cox_model_report3 %>%
+  mutate(variables = row.names(cox_model_report3)) %>%
+  select(variables, everything())
+write_xlsx(cox_model_report_excel, excel_path)
+  
+# create the foresplot
+plot_title <- "Forest Plot - Hazard ratio (with 95% Confidence Interval)\nRefined model | Immunization Stratification:\nUnprotected, Protected and Incomplete protection"
+foresplot <- create_forest_plot(cox_model_report3, plot_title, 21)
+print(foresplot)
+```
+
+## 3.4 Adjusted Survival Curves for Stratification into 3 groups 
+
+```{r}
+df_3<-as.data.frame(df_3)
+
+vars_descriptives <- included_vars[included_vars != "vaccinated"]
+
+# Create the formula
+string_formula <- paste("Surv(Survival_in_days, Status) ~ strata(vaccinated) + ",
+                          paste(vars_descriptives, collapse = " + "))
+formula <- as.formula(string_formula)
+  
+# Fit the Cox proportional hazards model with stratification by vaccinated status
+fit <- coxph(formula, data = df_3)
+  
+# Plot adjusted survival curves stratified by vaccinated status
+custom_colors <- c("Unprotected" = "#AB6BEA", "Protected" = "#4fc977", "Incomplete" = "#EBAF54")
+title = "Adjusted Survival Curves for Cox Proportional Hazards Model\nImmunization Stratification:\nUnprotected, Protected and Incomplete protection"
+ajusted_curve_3 <- ggadjustedcurves(fit,variable = 'vaccinated',
+                                       legend.title = "Vaccination Status",
+                                       main=title,
+                                       palette=custom_colors,
+                                       xlab='Days')
+
+figure_number <- 22
+
+# Save the plot as png
+png(paste0("../OUTPUT_figures_tables/Figure_", figure_number, ".png"),
+    width = 2400,
+    height = 1600,
+    res = 200,
+    pointsize = 7)
+print(ajusted_curve_3)
+dev.off()
+
+#Save the plot as tiff
+tiff(paste0("../OUTPUT_figures_tables/Figure_", figure_number, ".tiff"),
+    width = 2400,
+    height = 1600,
+    res = 200,
+    pointsize = 7)
+print(ajusted_curve_3)
+dev.off()
+
+# print the plot
+print(ajusted_curve_3)
+```
+
+# 4. Risk tables
+
+In the context of analysis 1 and 3, it is essential to gather information on the number of individuals at risk. This data plays a crucial role in enhancing the confidence of the adjusted Cox proportional hazards models curves. To facilitate this, the creation of two risk tables will be introduced. These tables will provide valuable insights into the number of persons at risk, contributing to a more comprehensive understanding of the adjusted Cox proportional hazards models curves.
+
+## 4.1. Risk table analysis 1
+```{r, fig.height=5, fig.width=10}
+string_formula <- paste("Surv(Survival_in_days, Status) ~ strata(vaccinated) + ",
+                          paste(vars_descriptives, collapse = " + "))
+formula <- as.formula(string_formula)
+  
+# Fit the Cox proportional hazards model with stratification by vaccinated status
+fit <- coxph(formula, data = df)
+  
+# Plot adjusted survival curves stratified by vaccinated status
+custom_colors <- c("Unvaccinated" = "#f08080", "Vaccinated" = "#4fc977")
+
+risktable_1 <- ggsurvtable(survfit(fit, data = df_over70),
+                          survtable = "risk.table",
+                          color = "strata",
+                          palette = custom_colors,
+                          legend.labs = c("Unvaccinated", "Vaccinated"),
+                          xlab = "Days",
+                          ylab = "Vaccination Status"
+                          ) +
+  theme(legend.position = "none") +
+  ggtitle("Number at risk: Analysis 1")
+
+figure_number <- 23
+
+# Save the plot as png
+png(paste0("../OUTPUT_figures_tables/Figure_", figure_number, ".png"),
+    width = 1300,
+    height = 500,
+    res = 150,
+    pointsize = 7)
+print(risktable_1)
+dev.off()
+
+#Save the plot as tiff
+tiff(paste0("../OUTPUT_figures_tables/Figure_", figure_number, ".tiff"),
+    width = 1300,
+    height = 500,
+    res = 150,
+    pointsize = 7)
+print(risktable_1)
+dev.off()
+
+# print the plot
+print(risktable_1)
+```
+
+## 4.2. Risk table analysis 2
+```{r, fig.height=5, fig.width=10}
+string_formula <- paste("Surv(Survival_in_days, Status) ~ strata(vaccinated) + ",
+                          paste(vars_descriptives, collapse = " + "))
+formula <- as.formula(string_formula)
+  
+# Fit the Cox proportional hazards model with stratification by vaccinated status
+fit <- coxph(formula, data = df_3)
+  
+# Plot adjusted survival curves stratified by vaccinated status
+custom_colors <- c("Unprotected" = "#AB6BEA", "Protected" = "#4fc977", "Incomplete" = "#EBAF54")
+
+
+risktable_3 <- ggsurvtable(survfit(fit, data = df_3),
+                          survtable = "risk.table",
+                          color = "strata",
+                          palette = custom_colors,
+                          xlab = "Days",
+                          ylab = "Vaccination Status"
+                          ) +
+  theme(legend.position = "none") +
+  ggtitle("Number at risk: Analysis 3")
+
+figure_number <- 24
+
+# Save the plot as png
+png(paste0("../OUTPUT_figures_tables/Figure_", figure_number, ".png"),
+    width = 1300,
+    height = 500,
+    res = 150,
+    pointsize = 7)
+print(risktable_3)
+dev.off()
+
+#Save the plot as tiff
+tiff(paste0("../OUTPUT_figures_tables/Figure_", figure_number, ".tiff"),
+    width = 1300,
+    height = 500,
+    res = 150,
+    pointsize = 7)
+print(risktable_3)
+dev.off()
+
+# print the plot
+print(risktable_3)
+```
+
+
+```{r, echo=FALSE}
+#The next code help to check the survival per vaccination status and time.
+#```{r}
+## ############## Day 1: Survival Analysis #################
+#
+## Analyze survival for non-vaccinated on Day 1
+#analyze_survival(df, "Survival_in_days", "Status", 0, 0)
+#
+## Analyze survival for vaccinated on Day 1
+#analyze_survival(df, "Survival_in_days", "Status", 1, 0)
+#
+## ############## Day 1: Survival Analysis #################
+#
+## Analyze survival for non-vaccinated on Day 50
+#analyze_survival(df, "Survival_in_days", "Status", 0, 50)
+#
+#
+## Analyze survival for vaccinated on last day
+#analyze_survival(df, "Survival_in_days", "Status", 1, max(subset(df, vaccinated == 1)$Survival_in_days))
+#```
+```
+

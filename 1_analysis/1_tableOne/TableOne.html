@@ -1,0 +1,500 @@
+
+<html>
+  <head><title>HTML Pandas Dataframe with CSS</title></head>
+  <link rel="stylesheet" type="text/css" href="df_style.css"/>
+  <body>
+    <table border="1" class="dataframe mystyle">
+  <thead>
+    <tr>
+      <th></th>
+      <th></th>
+      <th colspan="5" halign="left">Grouped by Mortality</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th></th>
+      <th>Missing</th>
+      <th>Overall</th>
+      <th>Deceased</th>
+      <th>Survivor</th>
+      <th>P-Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>n</th>
+      <th></th>
+      <td></td>
+      <td>37274</td>
+      <td>7202</td>
+      <td>30072</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">Sex, n (%)</th>
+      <th>Female</th>
+      <td>0</td>
+      <td>21420 (57.5)</td>
+      <td>4211 (58.5)</td>
+      <td>17209 (57.2)</td>
+      <td>0.057</td>
+    </tr>
+    <tr>
+      <th>Male</th>
+      <td></td>
+      <td>15854 (42.5)</td>
+      <td>2991 (41.5)</td>
+      <td>12863 (42.8)</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>Age, median [Q1,Q3]</th>
+      <th></th>
+      <td>0</td>
+      <td>68 [54,80]</td>
+      <td>81 [72,87]</td>
+      <td>64 [51,77]</td>
+      <td>&lt;0.001</td>
+    </tr>
+    <tr>
+      <th>Vaccine Doses Administered, median [Q1,Q3]</th>
+      <th></th>
+      <td>0</td>
+      <td>0 [0,2]</td>
+      <td>0 [0,3]</td>
+      <td>0 [0,2]</td>
+      <td>&lt;0.001</td>
+    </tr>
+    <tr>
+      <th rowspan="3" valign="top">Medical Center Type, n (%)</th>
+      <th>County Hospital</th>
+      <td>0</td>
+      <td>8445 (22.7)</td>
+      <td>1940 (26.9)</td>
+      <td>6505 (21.6)</td>
+      <td>&lt;0.001</td>
+    </tr>
+    <tr>
+      <th>Regional Hospital</th>
+      <td></td>
+      <td>14888 (39.9)</td>
+      <td>2634 (36.6)</td>
+      <td>12254 (40.7)</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>Specialized Hospital</th>
+      <td></td>
+      <td>13941 (37.4)</td>
+      <td>2628 (36.5)</td>
+      <td>11313 (37.6)</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">Vaccination Status, n (%)</th>
+      <th>No</th>
+      <td>0</td>
+      <td>22724 (61.0)</td>
+      <td>3726 (51.7)</td>
+      <td>18998 (63.2)</td>
+      <td>&lt;0.001</td>
+    </tr>
+    <tr>
+      <th>Yes</th>
+      <td></td>
+      <td>14550 (39.0)</td>
+      <td>3476 (48.3)</td>
+      <td>11074 (36.8)</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>ICU Stay, n (%)</th>
+      <th>Yes</th>
+      <td>0</td>
+      <td>3435 (9.2)</td>
+      <td>1490 (20.7)</td>
+      <td>1945 (6.5)</td>
+      <td>&lt;0.001</td>
+    </tr>
+    <tr>
+      <th>Inpatient Days, median [Q1,Q3]</th>
+      <th></th>
+      <td>0</td>
+      <td>8 [5,13]</td>
+      <td>10 [5,20]</td>
+      <td>7 [5,12]</td>
+      <td>&lt;0.001</td>
+    </tr>
+    <tr>
+      <th>followup_days, median [Q1,Q3]</th>
+      <th></th>
+      <td>0</td>
+      <td>36 [33,41]</td>
+      <td>10 [5,20]</td>
+      <td>37 [35,42]</td>
+      <td>&lt;0.001</td>
+    </tr>
+    <tr>
+      <th>Wave 3, n (%)</th>
+      <th>Yes</th>
+      <td>0</td>
+      <td>11873 (31.9)</td>
+      <td>2700 (37.5)</td>
+      <td>9173 (30.5)</td>
+      <td>&lt;0.001</td>
+    </tr>
+    <tr>
+      <th>Wave 4, n (%)</th>
+      <th>Yes</th>
+      <td>0</td>
+      <td>7053 (18.9)</td>
+      <td>648 (9.0)</td>
+      <td>6405 (21.3)</td>
+      <td>&lt;0.001</td>
+    </tr>
+    <tr>
+      <th>Wave 5, n (%)</th>
+      <th>Yes</th>
+      <td>0</td>
+      <td>5090 (13.7)</td>
+      <td>817 (11.3)</td>
+      <td>4273 (14.2)</td>
+      <td>&lt;0.001</td>
+    </tr>
+    <tr>
+      <th>Wave 6, n (%)</th>
+      <th>Yes</th>
+      <td>0</td>
+      <td>6951 (18.6)</td>
+      <td>1628 (22.6)</td>
+      <td>5323 (17.7)</td>
+      <td>&lt;0.001</td>
+    </tr>
+    <tr>
+      <th>Wave 7, n (%)</th>
+      <th>Yes</th>
+      <td>0</td>
+      <td>6307 (16.9)</td>
+      <td>1409 (19.6)</td>
+      <td>4898 (16.3)</td>
+      <td>&lt;0.001</td>
+    </tr>
+    <tr>
+      <th>Preexisting Condition Active Cancer, n (%)</th>
+      <th>Yes</th>
+      <td>0</td>
+      <td>5415 (14.5)</td>
+      <td>1529 (21.2)</td>
+      <td>3886 (12.9)</td>
+      <td>&lt;0.001</td>
+    </tr>
+    <tr>
+      <th>Preexisting Condition Asthma, n (%)</th>
+      <th>Yes</th>
+      <td>0</td>
+      <td>5002 (13.4)</td>
+      <td>721 (10.0)</td>
+      <td>4281 (14.2)</td>
+      <td>&lt;0.001</td>
+    </tr>
+    <tr>
+      <th>Preexisting Condition Congestive Heart Failure, n (%)</th>
+      <th>Yes</th>
+      <td>0</td>
+      <td>8693 (23.3)</td>
+      <td>2588 (35.9)</td>
+      <td>6105 (20.3)</td>
+      <td>&lt;0.001</td>
+    </tr>
+    <tr>
+      <th>Preexisting Condition Chronic Liver, n (%)</th>
+      <th>Yes</th>
+      <td>0</td>
+      <td>3477 (9.3)</td>
+      <td>643 (8.9)</td>
+      <td>2834 (9.4)</td>
+      <td>0.201</td>
+    </tr>
+    <tr>
+      <th>Preexisting Condition Chronic Kidney Disease, n (%)</th>
+      <th>Yes</th>
+      <td>0</td>
+      <td>6367 (17.1)</td>
+      <td>1906 (26.5)</td>
+      <td>4461 (14.8)</td>
+      <td>&lt;0.001</td>
+    </tr>
+    <tr>
+      <th>Preexisting Condition COPD, n (%)</th>
+      <th>Yes</th>
+      <td>0</td>
+      <td>7943 (21.3)</td>
+      <td>2023 (28.1)</td>
+      <td>5920 (19.7)</td>
+      <td>&lt;0.001</td>
+    </tr>
+    <tr>
+      <th>Preexisting Condition Dementia, n (%)</th>
+      <th>Yes</th>
+      <td>0</td>
+      <td>6556 (17.6)</td>
+      <td>2059 (28.6)</td>
+      <td>4497 (15.0)</td>
+      <td>&lt;0.001</td>
+    </tr>
+    <tr>
+      <th>Preexisting Condition Diabetes, n (%)</th>
+      <th>Yes</th>
+      <td>0</td>
+      <td>13313 (35.7)</td>
+      <td>3249 (45.1)</td>
+      <td>10064 (33.5)</td>
+      <td>&lt;0.001</td>
+    </tr>
+    <tr>
+      <th>Preexisting Condition Hyperlipidemia, n (%)</th>
+      <th>Yes</th>
+      <td>0</td>
+      <td>20295 (54.4)</td>
+      <td>4236 (58.8)</td>
+      <td>16059 (53.4)</td>
+      <td>&lt;0.001</td>
+    </tr>
+    <tr>
+      <th>Preexisting Condition Hypertension, n (%)</th>
+      <th>Yes</th>
+      <td>0</td>
+      <td>24948 (66.9)</td>
+      <td>5955 (82.7)</td>
+      <td>18993 (63.2)</td>
+      <td>&lt;0.001</td>
+    </tr>
+    <tr>
+      <th>Preexisting Condition Ischemic Heart Disease, n (%)</th>
+      <th>Yes</th>
+      <td>0</td>
+      <td>4592 (12.3)</td>
+      <td>1316 (18.3)</td>
+      <td>3276 (10.9)</td>
+      <td>&lt;0.001</td>
+    </tr>
+    <tr>
+      <th>Preexisting Condition Obesity, n (%)</th>
+      <th>Yes</th>
+      <td>0</td>
+      <td>9362 (25.1)</td>
+      <td>1557 (21.6)</td>
+      <td>7805 (26.0)</td>
+      <td>&lt;0.001</td>
+    </tr>
+    <tr>
+      <th>Preexisting Condition Stroke, n (%)</th>
+      <th>Yes</th>
+      <td>0</td>
+      <td>1994 (5.3)</td>
+      <td>546 (7.6)</td>
+      <td>1448 (4.8)</td>
+      <td>&lt;0.001</td>
+    </tr>
+    <tr>
+      <th>Alanine Transaminase (U/L), median [Q1,Q3]</th>
+      <th></th>
+      <td>0</td>
+      <td>31.0 [19.0,42.9]</td>
+      <td>27.0 [16.8,40.0]</td>
+      <td>31.6 [20.0,44.0]</td>
+      <td>&lt;0.001</td>
+    </tr>
+    <tr>
+      <th>Aspartate Transaminase (U/L), median [Q1,Q3]</th>
+      <th></th>
+      <td>0</td>
+      <td>37.2 [25.0,50.0]</td>
+      <td>40.5 [25.8,55.0]</td>
+      <td>37.0 [24.4,48.2]</td>
+      <td>&lt;0.001</td>
+    </tr>
+    <tr>
+      <th>Creatinine (mg/dL), median [Q1,Q3]</th>
+      <th></th>
+      <td>0</td>
+      <td>1.0 [0.8,1.2]</td>
+      <td>1.2 [0.9,1.8]</td>
+      <td>1.0 [0.8,1.2]</td>
+      <td>&lt;0.001</td>
+    </tr>
+    <tr>
+      <th>C-Reactive Protein (mg/L), median [Q1,Q3]</th>
+      <th></th>
+      <td>0</td>
+      <td>89.2 [39.9,134.0]</td>
+      <td>107.8 [64.5,175.0]</td>
+      <td>82.2 [35.8,123.0]</td>
+      <td>&lt;0.001</td>
+    </tr>
+    <tr>
+      <th>D-Dimer (ng/mL), median [Q1,Q3]</th>
+      <th></th>
+      <td>0</td>
+      <td>1088.0 [561.0,2272.2]</td>
+      <td>1919.8 [940.0,3670.0]</td>
+      <td>960.0 [519.0,2063.2]</td>
+      <td>&lt;0.001</td>
+    </tr>
+    <tr>
+      <th>Glucose (mg/dL), median [Q1,Q3]</th>
+      <th></th>
+      <td>0</td>
+      <td>123.0 [103.0,149.0]</td>
+      <td>139.2 [112.0,178.0]</td>
+      <td>121.0 [103.0,143.0]</td>
+      <td>&lt;0.001</td>
+    </tr>
+    <tr>
+      <th>Hematocrit (%), median [Q1,Q3]</th>
+      <th></th>
+      <td>0</td>
+      <td>40.4 [37.0,44.2]</td>
+      <td>39.0 [34.0,43.1]</td>
+      <td>40.8 [37.6,44.4]</td>
+      <td>&lt;0.001</td>
+    </tr>
+    <tr>
+      <th>Hemoglobin (g/dL), median [Q1,Q3]</th>
+      <th></th>
+      <td>0</td>
+      <td>13.6 [12.4,14.9]</td>
+      <td>13.0 [11.3,14.2]</td>
+      <td>13.7 [12.7,15.0]</td>
+      <td>&lt;0.001</td>
+    </tr>
+    <tr>
+      <th>Normalized Prothrombin Time - INR (-), median [Q1,Q3]</th>
+      <th></th>
+      <td>0</td>
+      <td>1.1 [1.0,1.2]</td>
+      <td>1.2 [1.1,1.4]</td>
+      <td>1.1 [1.0,1.2]</td>
+      <td>&lt;0.001</td>
+    </tr>
+    <tr>
+      <th>Lactate Dehydrogenase (U/L), median [Q1,Q3]</th>
+      <th></th>
+      <td>0</td>
+      <td>338.0 [261.0,405.0]</td>
+      <td>366.9 [289.0,483.0]</td>
+      <td>329.0 [256.9,391.0]</td>
+      <td>&lt;0.001</td>
+    </tr>
+    <tr>
+      <th>Leukocyte Count (x10^3/µL), median [Q1,Q3]</th>
+      <th></th>
+      <td>0</td>
+      <td>7.4 [5.3,9.4]</td>
+      <td>8.2 [6.0,11.7]</td>
+      <td>7.1 [5.2,8.9]</td>
+      <td>&lt;0.001</td>
+    </tr>
+    <tr>
+      <th>Lymphocyte Count (x10^3/µL), median [Q1,Q3]</th>
+      <th></th>
+      <td>0</td>
+      <td>1.0 [0.7,1.4]</td>
+      <td>0.8 [0.5,1.3]</td>
+      <td>1.1 [0.7,1.4]</td>
+      <td>&lt;0.001</td>
+    </tr>
+    <tr>
+      <th>Lymphocyte Percentage (%), median [Q1,Q3]</th>
+      <th></th>
+      <td>0</td>
+      <td>15.8 [9.6,20.3]</td>
+      <td>11.2 [6.4,16.6]</td>
+      <td>16.3 [10.7,21.1]</td>
+      <td>&lt;0.001</td>
+    </tr>
+    <tr>
+      <th>Mean Corpuscular Hemoglobin (pg), median [Q1,Q3]</th>
+      <th></th>
+      <td>0</td>
+      <td>29.6 [28.5,30.9]</td>
+      <td>29.7 [28.3,31.3]</td>
+      <td>29.6 [28.6,30.8]</td>
+      <td>&lt;0.001</td>
+    </tr>
+    <tr>
+      <th>Mean Corpuscular Volume (fL), median [Q1,Q3]</th>
+      <th></th>
+      <td>0</td>
+      <td>89.4 [86.1,92.9]</td>
+      <td>90.8 [87.3,95.4]</td>
+      <td>89.4 [85.9,92.3]</td>
+      <td>&lt;0.001</td>
+    </tr>
+    <tr>
+      <th>Neutrophil Count (x10^3/µL), median [Q1,Q3]</th>
+      <th></th>
+      <td>0</td>
+      <td>5.7 [3.8,7.5]</td>
+      <td>6.4 [4.6,9.8]</td>
+      <td>5.4 [3.6,7.0]</td>
+      <td>&lt;0.001</td>
+    </tr>
+    <tr>
+      <th>Neutrophil Percentage (%), median [Q1,Q3]</th>
+      <th></th>
+      <td>0</td>
+      <td>75.7 [70.2,83.5]</td>
+      <td>81.2 [75.0,87.8]</td>
+      <td>75.5 [69.4,82.1]</td>
+      <td>&lt;0.001</td>
+    </tr>
+    <tr>
+      <th>Platelet Count (x10^3/µL), median [Q1,Q3]</th>
+      <th></th>
+      <td>0</td>
+      <td>210.0 [160.0,253.0]</td>
+      <td>202.0 [148.0,254.0]</td>
+      <td>211.9 [162.0,253.0]</td>
+      <td>&lt;0.001</td>
+    </tr>
+    <tr>
+      <th>Potassium (mEq/L in HM, mmol/L in other units), median [Q1,Q3]</th>
+      <th></th>
+      <td>0</td>
+      <td>4.2 [3.9,4.5]</td>
+      <td>4.3 [4.0,4.7]</td>
+      <td>4.1 [3.8,4.4]</td>
+      <td>&lt;0.001</td>
+    </tr>
+    <tr>
+      <th>Red Blood Cell Count (x10^6/µL), median [Q1,Q3]</th>
+      <th></th>
+      <td>0</td>
+      <td>4.6 [4.2,5.0]</td>
+      <td>4.4 [3.8,4.8]</td>
+      <td>4.6 [4.3,5.1]</td>
+      <td>&lt;0.001</td>
+    </tr>
+    <tr>
+      <th>Sodium (mEq/L in HM, mmol/L in other units), median [Q1,Q3]</th>
+      <th></th>
+      <td>0</td>
+      <td>137.0 [135.0,139.0]</td>
+      <td>137.0 [134.0,140.0]</td>
+      <td>137.0 [135.0,139.0]</td>
+      <td>&lt;0.001</td>
+    </tr>
+    <tr>
+      <th>Urea (mg/dL), median [Q1,Q3]</th>
+      <th></th>
+      <td>0</td>
+      <td>41.0 [29.7,58.0]</td>
+      <td>61.0 [45.0,95.0]</td>
+      <td>38.0 [28.0,51.6]</td>
+      <td>&lt;0.001</td>
+    </tr>
+  </tbody>
+</table>
+  </body>
+</html>

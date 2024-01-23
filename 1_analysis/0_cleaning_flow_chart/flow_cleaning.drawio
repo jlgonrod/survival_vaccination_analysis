@@ -1,0 +1,139 @@
+<mxfile host="app.diagrams.net" modified="2024-01-23T08:18:08.609Z" agent="Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/117.0" etag="vm75mcPxpgKmAGlzyovn" version="22.1.21" type="device">
+  <diagram name="Página-1" id="Xb9hGHa7vQWwwQF6pS22">
+    <mxGraphModel dx="724" dy="744" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1300" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="u3R9UK4oMrawdaT3zUBm-3" value="Previous hospitalizations of patients are excluded.&lt;br&gt;n = 1,793" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;spacing=4;" parent="1" vertex="1">
+          <mxGeometry x="420" y="105" width="220" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="u3R9UK4oMrawdaT3zUBm-8" value="Patients with laboratory and comorbidities data.&lt;br&gt;n = 49,996" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;spacing=4;" parent="1" vertex="1">
+          <mxGeometry x="150" y="330" width="220" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="u3R9UK4oMrawdaT3zUBm-9" value="Patients without information from the laboratory or comorbidities are excluded.&lt;br&gt;n = 7,212" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;spacing=4;" parent="1" vertex="1">
+          <mxGeometry x="420" y="255" width="220" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="u3R9UK4oMrawdaT3zUBm-13" value="Patients aged 18 and older.&lt;br&gt;n = 49,996" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;spacing=4;" parent="1" vertex="1">
+          <mxGeometry x="150" y="480" width="220" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="u3R9UK4oMrawdaT3zUBm-14" value="Patients under 18 years old are excluded.&lt;br&gt;n = 0" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;spacing=4;" parent="1" vertex="1">
+          <mxGeometry x="420" y="405" width="220" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="u3R9UK4oMrawdaT3zUBm-19" value="Rows with inconsistencies between discharge date and date of death are excluded.&lt;br&gt;n = 6" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;spacing=4;" parent="1" vertex="1">
+          <mxGeometry x="420" y="555" width="220" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="u3R9UK4oMrawdaT3zUBm-26" value="Rows with discharge dates preceding admission dates are excluded.&lt;br&gt;n = 20" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;spacing=4;" parent="1" vertex="1">
+          <mxGeometry x="420" y="705" width="220" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="u3R9UK4oMrawdaT3zUBm-30" value="Cohort with patients from interest waves&lt;br&gt;n = 49,953" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;spacing=4;" parent="1" vertex="1">
+          <mxGeometry x="150" y="930" width="220" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="u3R9UK4oMrawdaT3zUBm-34" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="u3R9UK4oMrawdaT3zUBm-1" target="u3R9UK4oMrawdaT3zUBm-2" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="320" y="460" as="sourcePoint" />
+            <mxPoint x="260" y="170" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="u3R9UK4oMrawdaT3zUBm-1" value="Admissions with a positive Covid-19 test at the time of admission.&lt;br/&gt;n = 59,001" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;spacing=4;" parent="1" vertex="1">
+          <mxGeometry x="150" y="30" width="220" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="u3R9UK4oMrawdaT3zUBm-2" value="Last admision per patient. &lt;br&gt;n = 57,208" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;spacing=4;" parent="1" vertex="1">
+          <mxGeometry x="150" y="180" width="220" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="u3R9UK4oMrawdaT3zUBm-35" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="u3R9UK4oMrawdaT3zUBm-2" target="u3R9UK4oMrawdaT3zUBm-8" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="270" y="120" as="sourcePoint" />
+            <mxPoint x="270" y="190" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="u3R9UK4oMrawdaT3zUBm-36" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="u3R9UK4oMrawdaT3zUBm-8" target="u3R9UK4oMrawdaT3zUBm-13" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="260" y="360" as="sourcePoint" />
+            <mxPoint x="310" y="310" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="u3R9UK4oMrawdaT3zUBm-37" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="u3R9UK4oMrawdaT3zUBm-13" target="u3R9UK4oMrawdaT3zUBm-18" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="220" y="610" as="sourcePoint" />
+            <mxPoint x="310" y="420" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="u3R9UK4oMrawdaT3zUBm-39" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="u3R9UK4oMrawdaT3zUBm-25" target="u3R9UK4oMrawdaT3zUBm-30" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="260" y="780" as="sourcePoint" />
+            <mxPoint x="310" y="730" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="u3R9UK4oMrawdaT3zUBm-41" value="" style="endArrow=classic;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" target="u3R9UK4oMrawdaT3zUBm-3" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="260" y="145" as="sourcePoint" />
+            <mxPoint x="310" y="180" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="u3R9UK4oMrawdaT3zUBm-42" value="" style="endArrow=classic;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="260" y="294.75" as="sourcePoint" />
+            <mxPoint x="420" y="294.75" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="u3R9UK4oMrawdaT3zUBm-43" value="" style="endArrow=classic;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="260" y="444.75" as="sourcePoint" />
+            <mxPoint x="420" y="444.75" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="u3R9UK4oMrawdaT3zUBm-44" value="" style="endArrow=classic;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="260" y="594.75" as="sourcePoint" />
+            <mxPoint x="420" y="594.75" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="u3R9UK4oMrawdaT3zUBm-45" value="" style="endArrow=classic;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="260" y="744.75" as="sourcePoint" />
+            <mxPoint x="420" y="744.75" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="u3R9UK4oMrawdaT3zUBm-18" value="Patients with consistent&amp;nbsp; death/discharge dates.&lt;br&gt;n = 49,990" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;spacing=4;" parent="1" vertex="1">
+          <mxGeometry x="150" y="630" width="220" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="u3R9UK4oMrawdaT3zUBm-25" value="Patients with consistent&amp;nbsp; admission/discharge dates.&lt;br&gt;n = 49,970" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;spacing=4;" parent="1" vertex="1">
+          <mxGeometry x="150" y="780" width="220" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="u3R9UK4oMrawdaT3zUBm-38" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="u3R9UK4oMrawdaT3zUBm-18" target="u3R9UK4oMrawdaT3zUBm-25" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="260" y="670" as="sourcePoint" />
+            <mxPoint x="310" y="620" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="cQ22uyYNZPuLKwDnnQTC-2" value="Rows for the 0.5% of patients who are followed for the longest periods of time are excluded (outliers)&lt;br&gt;n = 198" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;spacing=4;" parent="1" vertex="1">
+          <mxGeometry x="420" y="1000" width="220" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="cQ22uyYNZPuLKwDnnQTC-3" value="" style="endArrow=classic;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="260" y="889.75" as="sourcePoint" />
+            <mxPoint x="420" y="889.75" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="6PslTsNAP_rcS77Rt8Ct-1" value="Final Cohort&lt;br&gt;n = 49,698" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;spacing=4;" parent="1" vertex="1">
+          <mxGeometry x="150" y="1080" width="220" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="6PslTsNAP_rcS77Rt8Ct-2" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" target="6PslTsNAP_rcS77Rt8Ct-1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="260" y="1010" as="sourcePoint" />
+            <mxPoint x="310" y="880" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="6PslTsNAP_rcS77Rt8Ct-3" value="&amp;nbsp;&lt;br&gt;&lt;div&gt;Patients from the first wave are excluded since there were no recorded patients during this period, resulting in a lack of information.&lt;/div&gt;&lt;div&gt;n = 17&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;spacing=4;" parent="1" vertex="1">
+          <mxGeometry x="420" y="830" width="220" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="6PslTsNAP_rcS77Rt8Ct-4" value="" style="endArrow=classic;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="260" y="1039.75" as="sourcePoint" />
+            <mxPoint x="420" y="1039.75" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

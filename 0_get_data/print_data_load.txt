@@ -1,0 +1,164 @@
+Step 1: Data ingestion/load
+Step 2: Map hospitals to provincias
+Step 3: Merge sociodemo & ingreso -> patient
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 59001 entries, 0 to 59000
+Data columns (total 11 columns):
+ #   Column                 Non-Null Count  Dtype         
+---  ------                 --------------  -----         
+ 0   NUHSA_ENCRIPTADO       59001 non-null  object        
+ 1   COD_FEC_NACIMIENTO     59001 non-null  datetime64[ns]
+ 2   sex                    59001 non-null  int64         
+ 3   DESC_SEXO              59001 non-null  object        
+ 4   COD_FEC_FALLECIMIENTO  16240 non-null  datetime64[ns]
+ 5   centro                 59001 non-null  object        
+ 6   admission_datetime     59001 non-null  datetime64[ns]
+ 7   discharge_datetime     59001 non-null  datetime64[ns]
+ 8   uci                    59001 non-null  int64         
+ 9   u_stay                 8407 non-null   float64       
+ 10  provincia              59001 non-null  object        
+dtypes: datetime64[ns](4), float64(1), int64(2), object(4)
+memory usage: 5.0+ MB
+None
+Total patients after sociodemo & ingreso merge: 59001
+Step 4: Manage cases with multiple admissions
+
+Days difference in admission date to consider reinfection: 50
+Reinfected -> 0.348% (199)
+No reinfected -> 99.652% (57009)
+
+Total patients rows after managing many admissions: 57208
+
+Step 5: Remove from patient NUHSA that do not have pmhx or lab
+NUHSA patient but not in pmhx: 2590
+Total patients without pmhx entry: 57208
+
+Step 6: Get age
+Step 8: Get pmhx
+Step 10: Merge pmhx
+Total patients after merging pmhx: 57208
+
+Sanity check
+First admission: 2020-03-12 00:00:00
+Last admission: 2022-11-28 00:00:00
+First discharge: 2020-07-01 00:00:00
+Last discharge: 2022-11-30 00:00:00
+Missing admission time: 0
+Missing discharge time: 0
+Step 11: Get periodo
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 57199 entries, 0 to 57198
+Data columns (total 35 columns):
+ #   Column                 Non-Null Count  Dtype         
+---  ------                 --------------  -----         
+ 0   NUHSA_ENCRIPTADO       57199 non-null  object        
+ 1   COD_FEC_NACIMIENTO     57199 non-null  datetime64[ns]
+ 2   sex                    57199 non-null  int64         
+ 3   DESC_SEXO              57199 non-null  object        
+ 4   COD_FEC_FALLECIMIENTO  15481 non-null  datetime64[ns]
+ 5   centro                 57199 non-null  object        
+ 6   hospital_outcome       57199 non-null  int64         
+ 7   admission_datetime     57199 non-null  datetime64[ns]
+ 8   discharge_datetime     57199 non-null  datetime64[ns]
+ 9   uci                    57199 non-null  int64         
+ 10  u_stay                 8216 non-null   float64       
+ 11  provincia              57199 non-null  object        
+ 12  reinfected             57199 non-null  category      
+ 13  age                    57199 non-null  int64         
+ 14  pmhx_hld               57199 non-null  float64       
+ 15  pmhx_htn               57199 non-null  float64       
+ 16  pmhx_dementia          57199 non-null  float64       
+ 17  pmhx_obesity           57199 non-null  float64       
+ 18  pmhx_copd              57199 non-null  float64       
+ 19  pmhx_chf               57199 non-null  float64       
+ 20  pmhx_ckd               57199 non-null  float64       
+ 21  pmhx_diabetes          57199 non-null  float64       
+ 22  pmhx_ihd               57199 non-null  float64       
+ 23  pmhx_tobacco           57199 non-null  float64       
+ 24  pmhx_chronicliver      57199 non-null  float64       
+ 25  pmhx_stroke            57199 non-null  float64       
+ 26  pmhx_asthma            57199 non-null  float64       
+ 27  pmhx_activecancer      57199 non-null  float64       
+ 28  periodo_5              57199 non-null  int64         
+ 29  periodo_3              57199 non-null  int64         
+ 30  periodo_6              57199 non-null  int64         
+ 31  periodo_2              57199 non-null  int64         
+ 32  periodo_4              57199 non-null  int64         
+ 33  periodo_7              57199 non-null  int64         
+ 34  periodo_1              57199 non-null  int64         
+dtypes: category(1), datetime64[ns](4), float64(15), int64(11), object(4)
+memory usage: 14.9+ MB
+None
+2020-01-01 00:00:00
+2022-12-31 00:00:00
+
+:::Exclusion criteria:::
+Initial number of cases: 57199
+After excluding those with <18 Age: 57199
+After excluding hospitals with less than 0: 57173
+After excluding those with missing admission time: 57173
+After excluding those with missing hospital_outcome: 57173
+Hospitals left: 37
+:::Outcome distribution:::
+Breakdown of hospital_outcome:
+hospital_outcome
+0    45663
+1    11510
+Name: count, dtype: int64
+centro
+H. Alto Guadalquivir                        481
+H. Costa del Sol                           1643
+H. Infanta Elena                           1265
+H. Infanta Margarita                       1657
+H. La Inmaculada                            796
+H. La Merced                               1047
+H. Punta de Europa                         1038
+H. San Agustín                              982
+H. San Juan de Dios del Aljarafe           1037
+H. San Juan de la Cruz                     1219
+H. Santa Ana                                757
+H. Valle de los Pedroches                   511
+H. de Antequera                             573
+H. de Baza                                  434
+H. de La Axarquía                           476
+H. de La Línea de la Concepción             476
+H. de Poniente                             1414
+H. de Riotinto                              218
+H. de la Serranía                           672
+H.U. Juan Ramón Jiménez                    1830
+H.U. Puerta del Mar                        1584
+H.U. Regional de Málaga                    2234
+H.U. Reina Sofía                           3420
+H.U. San Cecilio                           3213
+H.U. Torrecárdenas                         2235
+H.U. Virgen Macarena                       2940
+H.U. Virgen de Valme                       2158
+H.U. Virgen de la Victoria                 3926
+H.U. Virgen de las Nieves                  4877
+H.U. Virgen del Rocío                      7221
+H.U. de Jaén                               1995
+H.U. de Jerez de la Frontera               1679
+H.U. de Puerto Real                        1126
+Hospital General Santa María del Puerto      11
+Hospital San Rafael                           4
+Hospital Virgen Bella                        15
+Hospital Virgen de Las Montañas               9
+dtype: int64
+Step 13: Get vacunas
+Step 14: Process variables
+Columns with more than 0.5 null Index(['COD_FEC_FALLECIMIENTO', 'delta_days_death'], dtype='object')
+The 'COD_FEC_FALLECIMIENTO' and 'delta_days_death' columns have more than 50% missing values, indicating that some patients did not pass away.
+Step 15: add type center
+Recuento tipo de hospitales:
+                            count
+type_center                      
+Hospital de especialidades  21389
+Hospital regional           20692
+Hospital comarcal           12121
+Step 16: Save the files
+:::Performing imputation with IterativeImputer:::
+[]
+Number of nulls before imputation:  0
+Number of nulls after imputation: 0
+
+FINISH SUCCESSFULLY
