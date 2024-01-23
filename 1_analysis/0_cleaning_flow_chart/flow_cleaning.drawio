@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2024-01-23T08:18:08.609Z" agent="Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/117.0" etag="vm75mcPxpgKmAGlzyovn" version="22.1.21" type="device">
+<mxfile host="app.diagrams.net" modified="2024-01-23T15:18:36.140Z" agent="Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/117.0" etag="xOyIrdfcjkmi2HqlxeeM" version="22.1.21" type="device">
   <diagram name="Página-1" id="Xb9hGHa7vQWwwQF6pS22">
-    <mxGraphModel dx="724" dy="744" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1300" math="0" shadow="0">
+    <mxGraphModel dx="1434" dy="790" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1300" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -25,7 +25,7 @@
         <mxCell id="u3R9UK4oMrawdaT3zUBm-26" value="Rows with discharge dates preceding admission dates are excluded.&lt;br&gt;n = 20" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;spacing=4;" parent="1" vertex="1">
           <mxGeometry x="420" y="705" width="220" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="u3R9UK4oMrawdaT3zUBm-30" value="Cohort with patients from interest waves&lt;br&gt;n = 49,953" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;spacing=4;" parent="1" vertex="1">
+        <mxCell id="u3R9UK4oMrawdaT3zUBm-30" value="Cohort with patients from interest waves&lt;br&gt;n = 37,472" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;spacing=4;" parent="1" vertex="1">
           <mxGeometry x="150" y="930" width="220" height="80" as="geometry" />
         </mxCell>
         <mxCell id="u3R9UK4oMrawdaT3zUBm-34" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="u3R9UK4oMrawdaT3zUBm-1" target="u3R9UK4oMrawdaT3zUBm-2" edge="1">
@@ -124,7 +124,7 @@
             <mxPoint x="310" y="880" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="6PslTsNAP_rcS77Rt8Ct-3" value="&amp;nbsp;&lt;br&gt;&lt;div&gt;Patients from the first wave are excluded since there were no recorded patients during this period, resulting in a lack of information.&lt;/div&gt;&lt;div&gt;n = 17&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;spacing=4;" parent="1" vertex="1">
+        <mxCell id="6PslTsNAP_rcS77Rt8Ct-3" value="&lt;div&gt;Patients from the first and second waves are excluded because there were no vaccines available during those periods.&lt;/div&gt;&lt;div&gt;n=12,498&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;spacing=4;" parent="1" vertex="1">
           <mxGeometry x="420" y="830" width="220" height="120" as="geometry" />
         </mxCell>
         <mxCell id="6PslTsNAP_rcS77Rt8Ct-4" value="" style="endArrow=classic;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" edge="1">
