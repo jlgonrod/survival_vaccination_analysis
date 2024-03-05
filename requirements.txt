@@ -5,7 +5,7 @@ ipython==8.18.1
 matplotlib==3.8.2
 numpy==1.25.2
 openpyxl==3.1.2
-pandas==2.2.0
+pandas==2.2.
 pyarrow==15.0.0
 scikit-learn==1.4.0
 tableone==0.8.0

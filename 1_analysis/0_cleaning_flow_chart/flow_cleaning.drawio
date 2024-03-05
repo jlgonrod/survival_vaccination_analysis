@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2024-01-23T15:18:36.140Z" agent="Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/117.0" etag="xOyIrdfcjkmi2HqlxeeM" version="22.1.21" type="device">
+<mxfile host="app.diagrams.net" modified="2024-03-05T08:05:49.295Z" agent="Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/117.0" etag="SSl6tLvuE-DtWwvgpprH" version="24.0.1" type="device" pages="2">
   <diagram name="Página-1" id="Xb9hGHa7vQWwwQF6pS22">
-    <mxGraphModel dx="1434" dy="790" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1300" math="0" shadow="0">
+    <mxGraphModel dx="1434" dy="840" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1300" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -115,7 +115,7 @@
             <mxPoint x="420" y="889.75" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="6PslTsNAP_rcS77Rt8Ct-1" value="Final Cohort&lt;br&gt;n = 49,698" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;spacing=4;" parent="1" vertex="1">
+        <mxCell id="6PslTsNAP_rcS77Rt8Ct-1" value="Final Cohort&lt;br&gt;n = 37,274" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;spacing=4;" parent="1" vertex="1">
           <mxGeometry x="150" y="1080" width="220" height="80" as="geometry" />
         </mxCell>
         <mxCell id="6PslTsNAP_rcS77Rt8Ct-2" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" target="6PslTsNAP_rcS77Rt8Ct-1" edge="1">
@@ -132,6 +132,35 @@
             <mxPoint x="260" y="1039.75" as="sourcePoint" />
             <mxPoint x="420" y="1039.75" as="targetPoint" />
           </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="Abreviado" id="JbsvrMGJ2Ktf2n5m8iNS">
+    <mxGraphModel dx="1434" dy="840" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1300" math="0" shadow="0">
+      <root>
+        <mxCell id="fEg1-4ptNUhqIuI-XVzJ-0" />
+        <mxCell id="fEg1-4ptNUhqIuI-XVzJ-1" parent="fEg1-4ptNUhqIuI-XVzJ-0" />
+        <mxCell id="fEg1-4ptNUhqIuI-XVzJ-10" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;spacingLeft=4;spacingRight=4;" edge="1" parent="fEg1-4ptNUhqIuI-XVzJ-1" source="fEg1-4ptNUhqIuI-XVzJ-11" target="fEg1-4ptNUhqIuI-XVzJ-27">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="320" y="460" as="sourcePoint" />
+            <mxPoint x="260" y="180" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fEg1-4ptNUhqIuI-XVzJ-11" value="Admissions with a positive Covid-19 test at the time of admission.&lt;br/&gt;n = 59,001" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;spacing=4;spacingLeft=4;spacingRight=4;" vertex="1" parent="fEg1-4ptNUhqIuI-XVzJ-1">
+          <mxGeometry x="150" y="30" width="220" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="fEg1-4ptNUhqIuI-XVzJ-17" value="" style="endArrow=classic;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;spacingLeft=4;spacingRight=4;" edge="1" parent="fEg1-4ptNUhqIuI-XVzJ-1" target="vvD7tLZ1aSBy6Uk62mra-0">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="260" y="280" as="sourcePoint" />
+            <mxPoint x="370" y="170" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fEg1-4ptNUhqIuI-XVzJ-27" value="Final Cohort&lt;br&gt;n = 37,274" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;spacing=4;spacingLeft=4;spacingRight=4;" vertex="1" parent="fEg1-4ptNUhqIuI-XVzJ-1">
+          <mxGeometry x="150" y="450" width="220" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="vvD7tLZ1aSBy6Uk62mra-0" value="&lt;div align=&quot;justify&quot;&gt;The dataset underwent a review process where several exclusion criteria were applied. Firstly, previous patients&#39; admissions were excluded, as were those lacking laboratory data or comorbidity information (patients whose IDs are not in these two sub-datasets). Additionally, individuals under 18 years old were excluded. Admissions with inconsistencies between discharge dates and dates of death, as well as those with discharge dates preceding admission dates, were also excluded. Admissions occurring during the first and second waves, when vaccines were unavailable, were excluded. Finally, admissions for the 0.5% of patients with the longest follow-up (time elapsed between the date of admission and the most recent recorded observation) periods were excluded as outliers.&lt;/div&gt;&lt;div align=&quot;center&quot;&gt;n = 21,727&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;spacing=4;perimeterSpacing=0;gradientColor=none;horizontal=1;verticalAlign=middle;labelBackgroundColor=none;labelBorderColor=none;spacingTop=0;spacingLeft=4;spacingRight=4;" vertex="1" parent="fEg1-4ptNUhqIuI-XVzJ-1">
+          <mxGeometry x="414" y="150" width="326" height="260" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
