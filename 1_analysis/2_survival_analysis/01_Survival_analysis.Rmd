@@ -605,11 +605,15 @@ fit <- coxph(formula, data = df)
 # Plot adjusted survival curves stratified by vaccinated status
 custom_colors <- c("Unvaccinated" = "#f08080", "Vaccinated" = "#4fc977")
 title = "Adjusted Survival Curves for Cox Proportional Hazards Model Refined"
-ajusted_curve <- ggadjustedcurves(fit,variable = 'vaccinated',
-                                       legend.title = "Vaccination Status",
-                                       main=title,
-                                       palette=custom_colors,
-                                       xlab='Days')
+ajusted_curve <- ggadjustedcurves(fit,
+                                  variable = 'vaccinated',
+                                  legend.title = "Vaccination Status",
+                                  main=title,
+                                  palette=custom_colors,
+                                  xlab='Days',
+                                  xlim=c(0,90)) +
+  scale_x_continuous(breaks = seq(0, 90, by = 10)) +
+  coord_cartesian(xlim = c(0, 86))
 
 figure_number <- 9
 
@@ -779,11 +783,15 @@ fit <- coxph(formula, data = df_over80)
 # Plot adjusted survival curves stratified by vaccinated status
 custom_colors <- c("Unvaccinated" = "#f08080", "Vaccinated" = "#4fc977")
 title = "Adjusted Survival Curves for Cox Proportional Hazards Model\nGroup A | ≥ 80 years"
-ajusted_curve_A <- ggadjustedcurves(fit,variable = 'vaccinated',
-                                       legend.title = "Vaccination Status",
-                                       main=title,
-                                       palette=custom_colors,
-                                       xlab='Days')
+ajusted_curve_A <- ggadjustedcurves(fit,
+                                    variable = 'vaccinated',
+                                    legend.title = "Vaccination Status",
+                                    main=title,
+                                    palette=custom_colors,
+                                    xlab='Days',
+                                    xlim=c(0,90)) +
+  scale_x_continuous(breaks = seq(0, 90, by = 10)) +
+  coord_cartesian(xlim = c(0, 86))
 
 figure_number <- 11
 
@@ -855,11 +863,15 @@ fit <- coxph(formula, data = df_over70)
 # Plot adjusted survival curves stratified by vaccinated status
 custom_colors <- c("Unvaccinated" = "#f08080", "Vaccinated" = "#4fc977")
 title = "Adjusted Survival Curves for Cox Proportional Hazards Model\nGroup B | ≥ 70 years"
-ajusted_curve_B <- ggadjustedcurves(fit,variable = 'vaccinated',
-                                       legend.title = "Vaccination Status",
-                                       main=title,
-                                       palette=custom_colors,
-                                       xlab='Days')
+ajusted_curve_B <- ggadjustedcurves(fit,
+                                    variable = 'vaccinated',
+                                    legend.title = "Vaccination Status",
+                                    main=title,
+                                    palette=custom_colors,
+                                    xlab='Days',
+                                    xlim=c(0,90)) +
+  scale_x_continuous(breaks = seq(0, 90, by = 10)) +
+  coord_cartesian(xlim = c(0, 86))
 
 figure_number <- 13
 
@@ -932,11 +944,15 @@ fit <- coxph(formula, data = df_over60)
 # Plot adjusted survival curves stratified by vaccinated status
 custom_colors <- c("Unvaccinated" = "#f08080", "Vaccinated" = "#4fc977")
 title = "Adjusted Survival Curves for Cox Proportional Hazards Model\nGroup C | ≥ 60 years"
-ajusted_curve_C <- ggadjustedcurves(fit,variable = 'vaccinated',
-                                       legend.title = "Vaccination Status",
-                                       main=title,
-                                       palette=custom_colors,
-                                       xlab='Days')
+ajusted_curve_C <- ggadjustedcurves(fit,
+                                    variable = 'vaccinated',
+                                    legend.title = "Vaccination Status",
+                                    main=title,
+                                    palette=custom_colors,
+                                    xlab='Days',
+                                    xlim=c(0,90)) +
+  scale_x_continuous(breaks = seq(0, 90, by = 10)) +
+  coord_cartesian(xlim = c(0, 86))
 
 figure_number <- 15
 
@@ -1009,11 +1025,15 @@ fit <- coxph(formula, data = df_over40)
 # Plot adjusted survival curves stratified by vaccinated status
 custom_colors <- c("Unvaccinated" = "#f08080", "Vaccinated" = "#4fc977")
 title = "Adjusted Survival Curves for Cox Proportional Hazards Model\nGroup D | ≥ 40 years"
-ajusted_curve_D <- ggadjustedcurves(fit,variable = 'vaccinated',
-                                       legend.title = "Vaccination Status",
-                                       main=title,
-                                       palette=custom_colors,
-                                       xlab='Days')
+ajusted_curve_D <- ggadjustedcurves(fit,
+                                    variable = 'vaccinated',
+                                    legend.title = "Vaccination Status",
+                                    main=title,
+                                    palette=custom_colors,
+                                    xlab='Days',
+                                    xlim=c(0,90)) +
+  scale_x_continuous(breaks = seq(0, 90, by = 10)) +
+  coord_cartesian(xlim = c(0, 86))
 
 figure_number <- 17
 
@@ -1086,11 +1106,15 @@ fit <- coxph(formula, data = df_over18)
 # Plot adjusted survival curves stratified by vaccinated status
 custom_colors <- c("Unvaccinated" = "#f08080", "Vaccinated" = "#4fc977")
 title = "Adjusted Survival Curves for Cox Proportional Hazards Model\nGroup E | ≥ 18 years"
-ajusted_curve_E <- ggadjustedcurves(fit,variable = 'vaccinated',
-                                       legend.title = "Vaccination Status",
-                                       main=title,
-                                       palette=custom_colors,
-                                       xlab='Days')
+ajusted_curve_E <- ggadjustedcurves(fit,
+                                    variable = 'vaccinated',
+                                    legend.title = "Vaccination Status",
+                                    main=title,
+                                    palette=custom_colors,
+                                    xlab='Days',
+                                    xlim=c(0,90)) +
+  scale_x_continuous(breaks = seq(0, 90, by = 10)) +
+  coord_cartesian(xlim = c(0, 86))
 
 figure_number <- 19
 
@@ -1344,6 +1368,7 @@ print(foresplot)
 
 ```{r}
 df_3<-as.data.frame(df_3)
+df_3$vaccinated <- factor(df_3$vaccinated, levels = c("Unprotected", "Incomplete", "Protected"))
 
 vars_descriptives <- included_vars[included_vars != "vaccinated"]
 
@@ -1356,13 +1381,17 @@ formula <- as.formula(string_formula)
 fit <- coxph(formula, data = df_3)
   
 # Plot adjusted survival curves stratified by vaccinated status
-custom_colors <- c("Unprotected" = "#AB6BEA", "Protected" = "#4fc977", "Incomplete" = "#EBAF54")
+custom_colors <- c("Unprotected" = "#AB6BEA", "Incomplete" = "#EBAF54", "Protected" = "#4fc977")
 title = "Adjusted Survival Curves for Cox Proportional Hazards Model\nImmunization Stratification:\nUnprotected, Protected and Incomplete protection"
-ajusted_curve_3 <- ggadjustedcurves(fit,variable = 'vaccinated',
-                                       legend.title = "Vaccination Status",
-                                       main=title,
-                                       palette=custom_colors,
-                                       xlab='Days')
+ajusted_curve_3 <- ggadjustedcurves(fit,
+                                    variable = 'vaccinated',
+                                    legend.title = "Vaccination Status",
+                                    main=title,
+                                    palette=custom_colors,
+                                    xlab='Days',
+                                    xlim=c(0,90)) +
+  scale_x_continuous(breaks = seq(0, 90, by = 10)) +
+  coord_cartesian(xlim = c(0, 86))
 
 figure_number <- 22
 
